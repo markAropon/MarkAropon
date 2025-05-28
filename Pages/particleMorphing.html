@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Particle Morph Background</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script>
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000);
+    document.body.appendChild(renderer.domElement);
+    camera.position.z = 150;
+
+    // Configuration
+    const CLUSTER_COUNT = 15;
+    const PARTICLES_PER_CLUSTER = 2000;
+    const SHAPE_RADIUS = 25;
+    const MORPH_SPEED = 0.005;
+    const MOVEMENT_SPEED = 0.1;
+
+    // Shape generators
+    const shapeGenerators = {
+        sphere: (count) => {
+            const positions = new Float32Array(count * 3);
+            for(let i = 0; i < count; i++) {
+                const theta = Math.acos(2 * Math.random() - 1);
+                const phi = Math.random() * Math.PI * 2;
+                positions.set([
+                    SHAPE_RADIUS * Math.sin(theta) * Math.cos(phi),
+                    SHAPE_RADIUS * Math.sin(theta) * Math.sin(phi),
+                    SHAPE_RADIUS * Math.cos(theta)
+                ], i * 3);
+            }
+            return positions;
+        },
+
+        cube: (count) => {
+            const positions = new Float32Array(count * 3);
+            for(let i = 0; i < count; i++) {
+                positions.set([
+                    (Math.random() - 0.5) * SHAPE_RADIUS * 2,
+                    (Math.random() - 0.5) * SHAPE_RADIUS * 2,
+                    (Math.random() - 0.5) * SHAPE_RADIUS * 2
+                ], i * 3);
+            }
+            return positions;
+        },
+
+        torus: (count) => {
+            const positions = new Float32Array(count * 3);
+            const R = SHAPE_RADIUS * 0.7;
+            const r = SHAPE_RADIUS * 0.3;
+            for(let i = 0; i < count; i++) {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI * 2;
+                positions.set([
+                    (R + r * Math.cos(theta)) * Math.cos(phi),
+                    (R + r * Math.cos(theta)) * Math.sin(phi),
+                    r * Math.sin(theta)
+                ], i * 3);
+            }
+            return positions;
+        }
+    };
+
+    class ParticleCluster {
+        constructor(basePosition) {
+            this.basePosition = basePosition.clone();
+            this.velocity = new THREE.Vector3(
+                (Math.random() - 0.5) * MOVEMENT_SPEED,
+                (Math.random() - 0.5) * MOVEMENT_SPEED,
+                (Math.random() - 0.5) * MOVEMENT_SPEED
+            );
+            
+            // Initialize positions
+            this.scatteredPositions = this.generateScatteredPositions();
+            this.currentShape = this.randomShape();
+            this.targetPositions = shapeGenerators[this.currentShape](PARTICLES_PER_CLUSTER);
+            this.currentPositions = new Float32Array(this.scatteredPositions);
+            this.morphProgress = 0;
+            this.isMorphing = false;
+
+            // Create geometry and material
+            this.geometry = new THREE.BufferGeometry();
+            this.geometry.setAttribute('position', new THREE.BufferAttribute(this.currentPositions, 3));
+            
+            this.material = new THREE.PointsMaterial({
+                size: 0.8,
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.4,
+                sizeAttenuation: true,
+                depthWrite: false
+            });
+
+            this.points = new THREE.Points(this.geometry, this.material);
+            this.points.position.copy(this.basePosition);
+            scene.add(this.points);
+        }
+
+        generateScatteredPositions() {
+            const positions = new Float32Array(PARTICLES_PER_CLUSTER * 3);
+            for(let i = 0; i < PARTICLES_PER_CLUSTER; i++) {
+                positions.set([
+                    (Math.random() - 0.5) * SHAPE_RADIUS * 4,
+                    (Math.random() - 0.5) * SHAPE_RADIUS * 4,
+                    (Math.random() - 0.5) * SHAPE_RADIUS * 4
+                ], i * 3);
+            }
+            return positions;
+        }
+
+        update() {
+            // Position and movement
+            this.basePosition.add(this.velocity);
+            this.handleBoundaries();
+            this.points.position.copy(this.basePosition);
+
+            // Morphing logic
+            if(this.isMorphing) {
+                this.morphProgress = Math.min(this.morphProgress + MORPH_SPEED, 1);
+                if(this.morphProgress === 1) {
+                    setTimeout(() => this.isMorphing = false, 2000);
+                }
+            } else {
+                this.morphProgress = Math.max(this.morphProgress - MORPH_SPEED, 0);
+            }
+
+            // Update positions
+            for(let i = 0; i < this.currentPositions.length; i++) {
+                this.currentPositions[i] = 
+                    this.scatteredPositions[i] * (1 - this.morphProgress) + 
+                    this.targetPositions[i] * this.morphProgress;
+            }
+
+            this.geometry.attributes.position.needsUpdate = true;
+            this.material.opacity = 0.4 + 0.6 * this.morphProgress;
+        }
+
+        handleBoundaries() {
+            const BOUNDARY = 100;
+            ['x','y','z'].forEach(axis => {
+                if(Math.abs(this.basePosition[axis]) > BOUNDARY) {
+                    this.velocity[axis] *= -1;
+                }
+            });
+        }
+
+        randomShape() {
+            const shapes = Object.keys(shapeGenerators);
+            return shapes[Math.floor(Math.random() * shapes.length)];
+        }
+
+        startMorph() {
+            if(!this.isMorphing) {
+                this.isMorphing = true;
+                this.currentShape = this.randomShape();
+                this.targetPositions = shapeGenerators[this.currentShape](PARTICLES_PER_CLUSTER);
+            }
+        }
+    }
+
+    // Create clusters
+    const clusters = [];
+    for(let i = 0; i < CLUSTER_COUNT; i++) {
+        clusters.push(new ParticleCluster(new THREE.Vector3(
+            (Math.random() - 0.5) * 80,
+            (Math.random() - 0.5) * 80,
+            (Math.random() - 0.5) * 80
+        )));
+    }
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        clusters.forEach(cluster => {
+            cluster.update();
+            if(Math.random() < 0.002) cluster.startMorph();
+        });
+
+        renderer.render(scene, camera);
+    }
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Start animation
+    animate();
+
+    // WebGL check
+    if (!WEBGL.isWebGLAvailable()) {
+        document.body.innerHTML = 'WebGL is required to view this content.';
+    }
+</script>
+</body>
+</html>
