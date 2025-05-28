@@ -4,69 +4,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HomePage</title>
+    <link rel="stylesheet" href="/Css/HomePage.css" />
   </head>
-  <link rel="stylesheet" href="/Css/HomePage.css" />
   <body>
-    <header>
-      <h1 class="welcomeText">
-        Hey, I’m Mark!<br />Welcome to my little corner of the web 🙌
-      </h1>
-    </header>
-    <main>
+    <div
+      class="flexDiv"
+      style="display: flex; align-items: center; justify-content: space-around"
+    >
+      <header>
+        <h1 class="welcomeText">
+          Hey, I’m Mark!<br />Welcome to my little corner of the web 🙌
+        </h1>
+      </header>
+      <main>
         <div class="infoCards">
-            <div class="carousel-container">
-                <div id="aboutMe" class="slide active">
-                  <h2>About Me</h2>
-                  <p>I'm a passionate web developer who loves building creative and user-friendly websites. Explore my profile, resume, and gallery to learn more!</p>
-                </div>
-              
-                <div id="skills" class="slide">
-                  <h2>Skills</h2>
-                  <ul>
-                    <li>HTML, CSS, JavaScript</li>
-                    <li>React & Node.js</li>
-                    <li>Responsive Design</li>
-                    <li>UI/UX Principles</li>
-                  </ul>
-                </div>
-              
-                <div class="carousel-controls">
-                
-                  <div class="carousel-indicators"></div> 
-                 
-                </div>
-              </div>
-          </div>          
-      </div>
-      <div class="parentContainer" style="display: flex">
-        <div class="Card-container">
-          <img
-            src="/Css/Assets/profile.jpg"
-            alt="Mark's Profile Picture"
-            class="profile-image"
-          />
-          <a href="">Visit My web Profile</a>
+          <div class="carousel-container">
+            <div id="aboutMe" class="slide active">
+              <h2>About Me</h2>
+              <p class="intro">
+                I'm Aropon Mark James B., a recent Information Technology
+                graduate with a strong interest in web development and a drive
+                to grow in the tech industry. I'm dependable, organized, and
+                committed to learning and improving every day. While I may be
+                new to the field, I bring a strong work ethic, a team-first
+                mindset, and a genuine eagerness to contribute and add value
+                wherever I can.
+              </p>
+            </div>
+
+            <div id="skills" class="slide">
+              <h2>Skills</h2>
+              <ul>
+                <li>HTML, CSS, JavaScript</li>
+                <li>React & Node.js</li>
+                <li>Responsive Design</li>
+                <li>UI/UX Principles</li>
+              </ul>
+            </div>
+
+            <div class="carousel-controls">
+              <div class="carousel-indicators"></div>
+            </div>
+          </div>
         </div>
-        <div class="Card-container">
-          <img
-            src="/Css/Assets/ResumeIcon.jpg"
-            alt="Resume Image"
-            class="profile-image"
-          />
-          <a href="">View My Resume</a>
+        <div class="parentContainer" style="display: flex">
+          <div class="Card-container">
+            <img
+              src="/Css/Assets/profile.jpg"
+              alt="Mark's Profile Picture"
+              class="profile-image"
+            />
+            <a href="">Visit My web Profile</a>
+          </div>
+          <div class="Card-container">
+            <img
+              src="/Css/Assets/ResumeIcon.jpg"
+              alt="Resume Image"
+              class="profile-image"
+            />
+            <a href="">View My Resume</a>
+          </div>
+          <div class="Card-container">
+            <img
+              src="/Css/Assets/homePageBG1.jpg"
+              alt="Mark's Gallery"
+              class="profile-image"
+            />
+            <a href="">Visit My Gallery</a>
+          </div>
         </div>
-        <div class="Card-container">
-          <img
-            src="/Css/Assets/homePageBG1.jpg"
-            alt="Mark's Gallery"
-            class="profile-image"
-          />
-          <a href="">Visit My Gallery</a>
-        </div>
-      </div>
-    </main>
+      </main>
+    </div>
     <footer>
-      <p>&copy; 2024 Aropon Mark James B. All rights reserved.</p>
+      <p>© 2024 Aropon Mark James B. All rights reserved.</p>
     </footer>
     <script src="/Js/HomePage.js"></script>
   </body>
