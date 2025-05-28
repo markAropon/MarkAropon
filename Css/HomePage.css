@@ -46,11 +46,12 @@ header {
 }
 .parentContainer {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 1rem; /* 2rem * 0.5 */
+  gap: 1rem;
   flex-wrap: wrap;
   padding: 0.5rem;
-  margin: 0 auto;
+  margin: 1rem none;
   max-width: 600px; /* 1200px * 0.5 */
 }
 
@@ -125,7 +126,7 @@ footer {
   width: 500px;
   max-width: 500px;
   min-width: 500px;
-  margin: 1rem auto;
+  margin: 2rem auto 0 auto;
   background: rgba(255, 255, 255, 0.98);
   padding: 10px;
   border-radius: 16px;
@@ -134,6 +135,7 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .carousel-container {
+  margin: 2rem auto 0 auto;
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -151,7 +153,6 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0;
   visibility: hidden;
   transform: scale(0.98) translateX(10px);
   transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
@@ -181,6 +182,33 @@ footer {
   letter-spacing: 0.01em;
   transition: box-shadow 0.3s;
 }
+.skills-list {
+  max-width: 650px;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  justify-content: center;
+  padding: 1.25rem 2rem;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.skills-list li {
+  background: linear-gradient(90deg, #e3e9fc 70%, #7cacf5 100%);
+  color: #6950c3;
+  padding: 0.5em 1.2em;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(43, 4, 185, 0.07);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.skills-list li:hover {
+  background: #0f0339;
+  color: #fff;
+  transform: scale(1.05);
+}
 
 .intro:hover {
   box-shadow: 0 8px 32px rgba(43, 4, 185, 0.13);
@@ -201,29 +229,8 @@ footer {
   gap: 1.5rem;
 }
 
-.carousel-button {
-  background: rgba(43, 4, 185, 0.08);
-  border: none;
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #2b04b9;
-  font-size: 1.3rem;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(43, 4, 185, 0.07);
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-
-.carousel-button:hover {
-  background: #7cacf5;
-  color: #fff;
-  transform: scale(1.08);
-}
-
 .carousel-indicators {
+  margin-top: 100px;
   display: flex;
   gap: 10px;
 }
