@@ -4,37 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Profile</title>
-  </head>
+    <link rel="stylesheet" href="/Css/webProfile.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <header>
+    <div class="imageHolder">
+      <img src="/Css//Assets/profile.jpg" alt="My profile" />
+    </div>
+
+    <div class="titleHolder">
+      <h1>Mark James B. Aropon</h1>
+      <hr />
+      <p>Web Developer | Designer | Programmer</p>
+    </div>
+  </header>
   <body>
-    <header>
-      <h1>Welcome to My Web Profile</h1>
-      <nav>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section id="about">
-        <h2>About Me</h2>
-        <p>This is a brief introduction about myself.</p>
-      </section>
-      <section id="projects">
-        <h2>Projects</h2>
-        <ul>
-          <li>Project 1</li>
-          <li>Project 2</li>
-        </ul>
-      </section>
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: example@example.com</p>
-      </section>
-    </main>
-    <footer>
-      <p>&copy; 2024 My Web Profile</p>
-    </footer>
+    <section class="projects">
+      <h2>My projects</h2>
+      <div
+        class="projectsContainer"
+        style="display: flex; align-items: center; gap: 1rem"
+      >
+        <div class="projectCards Agreemo" id="Agreemo" onclick="window.location.href='/Pages/Projects/Agreemo.html'">
+          <h4>Agreemo</h4>
+        </div>
+        <div class="projectCards BusyHands"><h4>Busy Hands</h4></div>
+      </div>
+    </section>
+    <script src="/Js/webProfile.js"></script>
   </body>
 </html>

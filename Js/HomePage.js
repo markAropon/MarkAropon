@@ -4,13 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const carousel = document.querySelector(".carousel-container");
   let currentSlide = 0;
 
-  // --- Throttling for scroll events ---
   let isThrottled = false;
-  const throttleDuration = 700; // Milliseconds. Adjust this value.
-  // Should ideally be a bit longer than your slide transition time.
-  const scrollThreshold = 15; // Min scroll delta to trigger a slide change. Adjust this.
+  const throttleDuration = 700;
+  const scrollThreshold = 15;
 
-  // --- Initial Slide Setup ---
   if (slides.length === 0) {
     console.warn("No slides found for the carousel.");
     if (indicatorsContainer)
@@ -40,9 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     slides[0].style.visibility = "visible";
   }
 
-  // --- Setup Controls if more than one slide ---
   if (slides.length > 1) {
-    // Indicator Setup (Visual Only)
     if (indicatorsContainer) {
       slides.forEach((_, index) => {
         const indicator = document.createElement("div");
@@ -56,33 +51,28 @@ document.addEventListener("DOMContentLoaded", () => {
       console.warn("Carousel indicators container not found.");
     }
 
-    // Scroll Navigation
     if (carousel) {
       carousel.addEventListener(
         "wheel",
         (event) => {
           if (isThrottled) {
-            event.preventDefault(); // Prevent page scroll even while throttled if desired
+            event.preventDefault();
             return;
           }
 
           let delta = event.deltaY;
-          // If deltaY is 0 (e.g., some trackpads for horizontal scroll), try deltaX
           if (delta === 0 && event.deltaX !== 0) {
             delta = event.deltaX;
           }
 
           let slideChanged = false;
           if (delta > scrollThreshold) {
-            // Scrolling down or right
             const nextIndex = (currentSlide + 1) % slides.length;
             if (nextIndex !== currentSlide) {
-              // Avoid re-triggering on no change (e.g. only 1 slide)
               showSlide(nextIndex, "next");
               slideChanged = true;
             }
           } else if (delta < -scrollThreshold) {
-            // Scrolling up or left
             const prevIndex =
               (currentSlide - 1 + slides.length) % slides.length;
             if (prevIndex !== currentSlide) {
@@ -92,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           if (slideChanged) {
-            event.preventDefault(); // Prevent the page from scrolling if a slide changed
+            event.preventDefault();
             isThrottled = true;
             setTimeout(() => {
               isThrottled = false;
@@ -100,16 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         },
         { passive: false }
-      ); // passive: false is needed to allow preventDefault
+      );
     } else {
       console.warn("Carousel container for scroll navigation not found.");
     }
   } else {
-    // Only one slide or no slides, hide indicators if they exist
     if (indicatorsContainer) indicatorsContainer.style.display = "none";
   }
 
-  // --- Update Indicators Function ---
   function updateIndicators(index) {
     if (!indicatorsContainer || slides.length <= 1) return;
     document.querySelectorAll(".indicator").forEach((indicator, i) => {
@@ -117,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Slide Transition Logic ---
   function showSlide(index, direction = "next") {
     const currentActive = document.querySelector(".slide.active");
     const nextSlide = slides[index];
@@ -139,16 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
     nextSlide.style.visibility = "visible";
     nextSlide.classList.add("active");
 
-    void nextSlide.offsetHeight; // Force reflow
+    void nextSlide.offsetHeight;
 
-    nextSlide.style.transition = ""; // Re-enable CSS transitions
+    nextSlide.style.transition = "";
     nextSlide.style.transform = "translateX(0)";
     nextSlide.style.opacity = "1";
 
     currentSlide = index;
     if (slides.length > 1) updateIndicators(index);
 
-    // IMPORTANT: Match this duration (e.g., 500ms) to your CSS slide transition-duration
     const slideTransitionDuration = 300;
     setTimeout(() => {
       if (currentActive) {
@@ -165,8 +151,8 @@ setTimeout(() => {
   welcomeAlert.textContent = "Welcome to my profile!";
   welcomeAlert.style.cssText = `
       position: fixed;
-      top: 20px;
-      left: 50%;
+      top: 50px;
+      left: 50px;
       transform: translateX(-50%);
       background: rgba(43, 4, 185, 0.9);
       color: white;
