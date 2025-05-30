@@ -1,0 +1,671 @@
+:root {
+  /* Light Blue Palette (same as before) */
+  --primary-blue: #007bff;
+  --primary-blue-dark: #0056b3;
+  --secondary-blue: #5dade2;
+  --light-blue-bg: #e7f3ff;
+  --hover-light-blue-bg: #d0eaff;
+  --page-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dee2e6;
+  --input-border-color: #ced4da;
+  --input-focus-border-color: #86b7fe;
+  --input-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+  --text-color: #212529;
+  --text-muted: #6c757d;
+  --label-color: #0d6efd;
+  --success: #198754;
+  --warning: #ffc107;
+  --error: #dc3545;
+  --success-bg-light: rgba(25, 135, 84, 0.1);
+  --warning-bg-light: rgba(255, 193, 7, 0.15);
+  --error-bg-light: rgba(220, 53, 69, 0.1);
+  --syntax-bg: #f8f9fa;
+  --syntax-text: #333;
+  --syntax-key: #005cc5;
+  --syntax-string: #032f62;
+  --syntax-number: #d73a49;
+  --syntax-boolean: #e36209;
+  --syntax-null: #6a737d;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: auto; /* Allow content to determine height */
+  overflow-x: hidden; /* Prevent horizontal scroll on body */
+}
+
+body {
+  background: var(--page-bg);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  padding: 20px;
+  line-height: 1.6; /* Improved readability */
+}
+
+.container {
+  max-width: 1300px; /* Max width for very wide screens */
+  width: 100%;
+  margin: 0 auto; /* Center the container */
+  display: grid;
+  grid-template-columns: 1fr; /* Default to single column */
+  gap: 25px;
+}
+
+/* Media query for side-by-side layout on wider screens */
+@media (min-width: 992px) {
+  /* Adjust breakpoint as needed (e.g., 768px, 1024px) */
+  .container {
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+  }
+}
+
+/* The direct children of .container (the columns) don't need special flex/height/overflow */
+.container > div {
+  /* No fixed height or overflow needed here; grid handles it */
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 10px; /* Restore card's own radius */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Restore card's own shadow */
+  padding: 25px;
+  margin-bottom: 25px; /* Restore bottom margin if needed, or rely on grid gap */
+  border: 1px solid var(--border-color); /* Restore card's own border */
+  display: flex; /* Good for internal layout of sections */
+  flex-direction: column;
+  height: auto; /* Card height determined by its content */
+}
+.container > div:last-child .card {
+  /* Optional: remove bottom margin from last card in a column if not needed */
+  /* margin-bottom: 0; */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--primary-blue);
+  letter-spacing: 0.02em;
+  padding-bottom: 15px;
+  /* border-bottom: 1px solid var(--border-color); */ /* Optional title separator */
+}
+h1 i {
+  margin-right: 10px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: var(--primary-blue);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+h2 i {
+  color: var(--primary-blue);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--label-color);
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--input-border-color);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--input-focus-border-color);
+  box-shadow: var(--input-focus-box-shadow);
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  padding-right: 2.5rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 250px; /* Max height before it scrolls internally */
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 0.9rem;
+  overflow-y: auto; /* Ensure textarea itself scrolls if content exceeds max-height */
+}
+
+button {
+  padding: 10px 15px;
+  background: var(--primary-blue);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+button:hover {
+  background: var(--primary-blue-dark);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+.btn-small {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  width: auto;
+  border-radius: 5px;
+  background-color: var(--secondary-blue);
+}
+.btn-small:hover {
+  background-color: var(--primary-blue);
+}
+/* Specific overrides for small buttons */
+#clear-history,
+#save-request,
+#generate-headers,
+#generate-from-response,
+#custom-generator,
+#add-data-field,
+#generate-custom-data,
+#reset-data-fields,
+.add-header-btn,
+.add-form-data-btn {
+  background-color: var(--secondary-blue);
+}
+#clear-history:hover,
+#save-request:hover,
+#generate-headers:hover,
+#generate-from-response:hover,
+#custom-generator:hover,
+#add-data-field:hover,
+#generate-custom-data:hover,
+#reset-data-fields:hover,
+.add-header-btn:hover,
+.add-form-data-btn:hover {
+  background-color: var(--primary-blue);
+}
+#reset-data-fields {
+  background-color: var(--text-muted);
+}
+#reset-data-fields:hover {
+  background-color: #5a6268;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+.section:last-child {
+  margin-bottom: 5px; /* Little space for last section before card padding ends */
+}
+
+.collapse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--light-blue-bg);
+  margin-bottom: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.collapse-header:hover {
+  background-color: var(--light-blue-bg);
+}
+
+.collapse-header h3 {
+  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+}
+.collapse-header h3 i {
+  margin-right: 8px;
+  font-size: 0.9em;
+}
+.collapse-header i.fas.fa-chevron-right,
+.collapse-header i.fas.fa-chevron-down {
+  color: var(--primary-blue);
+  transition: transform 0.2s ease-in-out;
+  margin-left: auto;
+  padding-left: 10px;
+  font-size: 0.9rem;
+}
+
+.collapse-content {
+  padding-top: 10px;
+  display: none; /* JS controls initial state based on class or logic */
+}
+.collapse-content.default-open {
+  display: block;
+}
+
+.history-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.history-item:hover {
+  background: var(--light-blue-bg);
+  border-color: var(--secondary-blue);
+  transform: translateX(2px);
+}
+
+.history-method {
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-right: 10px;
+  display: inline-block;
+  width: 55px;
+  font-size: 0.85rem;
+}
+
+.history-url {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-color);
+  max-width: calc(100% - 75px); /* Ensure it doesn't push timestamp too far */
+  display: inline-block; /* For text-overflow to work with max-width */
+}
+.history-item div:last-child {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.response-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.status-code {
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.status-2xx {
+  background: var(--success-bg-light);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.status-4xx {
+  background: var(--warning-bg-light);
+  color: #b8860b;
+  border: 1px solid var(--warning);
+}
+
+.status-5xx {
+  background: var(--error-bg-light);
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+.response-time {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+pre {
+  background: var(--syntax-bg);
+  color: var(--syntax-text);
+  padding: 15px;
+  border-radius: 6px;
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 0.85rem;
+  overflow: auto; /* Allow both x and y scroll */
+  min-height: 120px; /* Reasonable min height */
+  max-height: 350px; /* Max height before it scrolls internally */
+  white-space: pre-wrap;
+  word-break: break-word;
+  border: 1px solid var(--border-color);
+}
+
+.key {
+  color: var(--syntax-key);
+}
+.string {
+  color: var(--syntax-string);
+}
+.number {
+  color: var(--syntax-number);
+}
+.boolean {
+  color: var(--syntax-boolean);
+}
+.null {
+  color: var(--syntax-null);
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-row > div {
+  flex: 1;
+}
+
+.history-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.history-controls .btn-small {
+  flex: 1;
+}
+
+.header-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.header-item input {
+  flex: 1;
+}
+
+.header-item button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--error);
+  border: 1px solid var(--error);
+  border-radius: 5px;
+  box-shadow: none;
+  transition: background-color 0.2s ease;
+}
+.header-item button:hover {
+  background-color: var(--error-bg-light);
+}
+.header-item button i {
+  font-size: 0.8rem;
+}
+
+.add-header-btn,
+.add-form-data-btn {
+  margin-top: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.tab {
+  padding: 8px 15px;
+  background: var(--page-bg);
+  border: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+  margin-right: 2px;
+}
+
+.tab.active {
+  background: var(--card-bg);
+  color: var(--primary-blue);
+  border-bottom: 1px solid var(--card-bg);
+  font-weight: 600;
+  z-index: 2;
+}
+
+.tab-content-container {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 15px;
+  margin-top: 0;
+  background-color: var(--card-bg);
+  /* No flex-grow or overflow:auto here, let content dictate height */
+}
+/* Adjustments for tab container corners when tabs are active */
+.tabs .tab:first-child.active ~ .tab-content-container {
+  border-top-left-radius: 0;
+}
+.tabs .tab:last-child.active ~ .tab-content-container,
+.tabs .tab:only-child.active ~ .tab-content-container {
+  border-top-right-radius: 0;
+}
+.tabs:has(.tab:only-child) + .tab-content-container {
+  /* For single tab scenario */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-muted);
+  background-color: var(--light-blue-bg);
+  border-radius: 6px;
+  border: 1px dashed var(--secondary-blue);
+}
+
+.empty-state i {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: var(--secondary-blue);
+}
+
+/* Data Generator Styles */
+.data-gen-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  align-items: center;
+}
+
+.data-gen-panel {
+  background: var(--light-blue-bg);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  display: none;
+  border: 1px solid var(--secondary-blue);
+}
+
+.data-gen-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.data-gen-row input,
+.data-gen-row select {
+  flex: 1;
+  background-color: var(--card-bg);
+}
+
+.data-gen-row button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: transparent;
+  color: var(--error);
+  border: 1px solid var(--error);
+  border-radius: 5px;
+  box-shadow: none;
+  transition: background-color 0.2s ease;
+}
+.data-gen-row button:hover {
+  background-color: var(--error-bg-light);
+}
+.data-gen-row button i {
+  font-size: 0.8rem;
+}
+
+.data-gen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.data-gen-header h3 {
+  color: var(--primary-blue);
+  font-size: 1.2rem;
+}
+.data-gen-header button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--text-muted);
+  border-radius: 5px;
+  box-shadow: none;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+.data-gen-header button:hover {
+  background-color: var(--hover-light-blue-bg);
+  color: var(--text-color);
+  border-color: var(--text-color);
+}
+
+.data-gen-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.data-gen-actions .btn-small {
+  flex: 1;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: var(--text-color);
+  color: var(--card-bg);
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px 10px;
+  position: absolute;
+  z-index: 10;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--text-color) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info-icon {
+  color: var(--secondary-blue);
+  cursor: help;
+  font-size: 1.1rem;
+}

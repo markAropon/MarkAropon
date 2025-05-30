@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BusyHands Cleaning Company - System Documentation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/Css/Busyhands.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-content">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-hands"></i>
+          </div>
+          <div class="logo-text">Busy<span>Hands</span></div>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="#overview"><i class="fas fa-home"></i> Overview</a>
+            </li>
+            <li>
+              <a href="#problems"
+                ><i class="fas fa-exclamation-circle"></i> Problem Statement</a
+              >
+            </li>
+            <li>
+              <a href="#objectives"
+                ><i class="fas fa-bullseye"></i> Objectives</a
+              >
+            </li>
+            <li>
+              <a href="#systems"><i class="fas fa-cogs"></i> Systems</a>
+            </li>
+            <li>
+              <a href="#implementation"
+                ><i class="fas fa-tasks"></i> Implementation</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <h1>Cleaning Services Management System</h1>
+        <p>
+          A comprehensive system integration project for BusyHands Cleaning
+          Company to revolutionize operational efficiency and customer
+          satisfaction
+        </p>
+        <div class="hero-buttons">
+          <a href="#overview" class="btn btn-primary">View Documentation</a>
+          <a href="#systems" class="btn btn-outline">Explore Systems</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Overview Section -->
+      <section id="overview" class="content-section">
+        <div class="section-title">
+          <i class="fas fa-info-circle"></i>
+          <h2>Project Overview</h2>
+        </div>
+
+        <div class="chapter">
+          <h3>1.1 Background of the Study</h3>
+          <p>
+            The Cleaning Services Management System (CSMS) is sophisticated
+            software designed to revolutionize the operational efficiency and
+            organization of cleaning service businesses. This user-friendly
+            system offers features to streamline cleaning operations, optimizing
+            task management for booking and billing, customer management,
+            employee scheduling, and inventory control.
+          </p>
+          <p>
+            In contrast to traditional paper-based methods, the CSMS offers a
+            centralized platform for the systematic and secure storage of vital
+            data concerning customers, cleaning staff, and cleaning projects.
+            This transition from manual processes to digital record-keeping
+            minimizes errors and expedites data management, significantly
+            improving overall workflow.
+          </p>
+        </div>
+
+        <div class="chapter">
+          <h3>1.2 Statement of the Problems</h3>
+          <p>
+            The effectiveness of a CSMS hinges on the efficiency of its
+            subsystems. This study examines problems encountered within five key
+            subsystems:
+          </p>
+
+          <div class="system-cards">
+            <div class="system-card">
+              <h5><i class="fas fa-calendar-alt"></i> Employee Scheduling</h5>
+              <p>
+                Manual scheduling leads to inefficiencies, scheduling conflicts,
+                and suboptimal workforce allocation. Difficulty tracking
+                employee availability contributes to errors.
+              </p>
+            </div>
+
+            <div class="system-card">
+              <h5><i class="fas fa-money-bill-wave"></i> Payroll Management</h5>
+              <p>
+                Time-consuming and error-prone manual data entry for timesheets
+                and payroll processing leads to inaccurate wage calculations and
+                financial risks.
+              </p>
+            </div>
+
+            <div class="system-card">
+              <h5><i class="fas fa-users"></i> Customer Management</h5>
+              <p>
+                Difficulty managing customer information with manual processes
+                leads to errors, inconsistent communication, and lack of
+                scalability.
+              </p>
+            </div>
+
+            <div class="system-card">
+              <h5><i class="fas fa-boxes"></i> Inventory Management</h5>
+              <p>
+                Manual recording processes are time-consuming, prone to errors,
+                and lack real-time updates. Lack of visibility leads to
+                stockouts and inefficiencies.
+              </p>
+            </div>
+
+            <div class="system-card">
+              <h5><i class="fas fa-calendar-check"></i> Booking & Billing</h5>
+              <p>
+                Manual scheduling and billing processes are inefficient.
+                Inaccuracies in billing and payment processing lead to financial
+                losses and customer dissatisfaction.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem Statement Section -->
+      <section id="problems" class="content-section">
+        <div class="section-title">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h2>Problem Statement</h2>
+        </div>
+
+        <div class="subsection">
+          <h4>
+            <i class="fas fa-calendar-alt"></i> Employee Scheduling Problems
+          </h4>
+          <ul class="problem-list">
+            <li>
+              Manual scheduling processes lead to inefficiencies, such as
+              scheduling conflicts and suboptimal workforce allocation
+            </li>
+            <li>
+              Difficulty in tracking and managing employee availability
+              contributes to errors and missed opportunities
+            </li>
+            <li>
+              Reduced operational effectiveness due to inefficiencies and
+              potential compliance issues
+            </li>
+            <li>Decreased employee satisfaction and morale</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h4>
+            <i class="fas fa-money-bill-wave"></i> Payroll Management Problems
+          </h4>
+          <ul class="problem-list">
+            <li>
+              Time-consuming and error-prone manual data entry for timesheets
+              and payroll processing
+            </li>
+            <li>Inaccurate wage calculations due to manual processes</li>
+            <li>
+              Risk of financial losses due to overpayments, underpayments, and
+              non-compliance
+            </li>
+            <li>
+              Decreased employee satisfaction due to inaccurate wage
+              calculations and delays
+            </li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h4><i class="fas fa-users"></i> Customer Management Problems</h4>
+          <ul class="problem-list">
+            <li>
+              Difficulty in managing customer information due to manual
+              processes
+            </li>
+            <li>
+              Inconsistent communication methods hinder effective communication
+            </li>
+            <li>
+              Lack of scalability and adaptability limits growth potential
+            </li>
+            <li>
+              Decreased customer satisfaction due to errors, delays, and
+              communication issues
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Objectives Section -->
+      <section id="objectives" class="content-section">
+        <div class="section-title">
+          <i class="fas fa-bullseye"></i>
+          <h2>Project Objectives</h2>
+        </div>
+
+        <div class="chapter">
+          <h3>1.3.1 General Objective</h3>
+          <p>
+            The main objective of the Cleaning Services Management System (CSMS)
+            is to revolutionize the operational efficiency, organization, and
+            customer satisfaction within cleaning service businesses at Busy
+            Hands Cleaning Services Inc. This system aims to streamline crucial
+            aspects of cleaning operations, including booking and billing,
+            customer management, employee scheduling, and inventory control.
+          </p>
+        </div>
+
+        <div class="chapter">
+          <h3>1.3.2 Specific Objectives</h3>
+          <ol class="objective-list">
+            <li>
+              Develop automated and streamlined workflows for task assignment,
+              scheduling, payroll, and inventory management
+            </li>
+            <li>
+              Foster seamless collaboration between employees and management
+              with a dedicated communication channel
+            </li>
+            <li>
+              Implement robust security protocols to safeguard sensitive data,
+              ensuring compliance with regulations
+            </li>
+            <li>
+              Design a secure database to store employee attendance, customer
+              information, and inventory data
+            </li>
+            <li>
+              Create algorithms for efficient employee assignment and accurate
+              payroll calculations
+            </li>
+            <li>
+              Develop a user-friendly platform offering easy clocking for
+              employees and efficient data management
+            </li>
+            <li>
+              Create a dedicated customer support line for prompt issue
+              resolution
+            </li>
+            <li>
+              Design a system for restricting bookings on specific dates to
+              manage cleaning service availability
+            </li>
+          </ol>
+        </div>
+
+        <div class="chapter">
+          <h3>Scope and Delimitation</h3>
+          <div class="table-container">
+            <table>
+              <tr>
+                <th>System</th>
+                <th>Scope</th>
+                <th>Delimitation</th>
+              </tr>
+              <tr>
+                <td>Employee Scheduling</td>
+                <td>
+                  Create, manage, and edit accounts; assign bookings; view
+                  schedules
+                </td>
+                <td>
+                  Initially focuses on scheduling availability (leaves in future
+                  iterations)
+                </td>
+              </tr>
+              <tr>
+                <td>Payroll Management</td>
+                <td>
+                  Automate salary calculation; configure payroll components;
+                  secure access
+                </td>
+                <td>
+                  Will not handle tax calculations or direct fund transfers
+                </td>
+              </tr>
+              <tr>
+                <td>Customer Management</td>
+                <td>
+                  Centralize client data; communication channels; appointment
+                  scheduling
+                </td>
+                <td>Limited to Busy Hands' operational area</td>
+              </tr>
+              <tr>
+                <td>Inventory Management</td>
+                <td>
+                  Digital inventory management; tracking cleaning supplies;
+                  stock reports
+                </td>
+                <td>Focuses solely on cleaning supplies inventory</td>
+              </tr>
+              <tr>
+                <td>Booking & Billing</td>
+                <td>
+                  Display services; notify bookings; accept bookings; display
+                  receipts
+                </td>
+                <td>
+                  Confined to enhancing Busy Hands' booking and billing system
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Systems Section -->
+      <section id="systems" class="content-section">
+        <div class="section-title">
+          <i class="fas fa-cogs"></i>
+          <h2>System Components</h2>
+        </div>
+
+        <div class="chapter">
+          <h3>Functional Requirements</h3>
+
+          <div class="subsection">
+            <h4>
+              <i class="fas fa-calendar-alt"></i> Employee Scheduling System
+            </h4>
+            <ul class="problem-list">
+              <li>
+                The system must allow the admin to create an account for company
+                security
+              </li>
+              <li>
+                Admins must manage employees' payroll information and payslips
+              </li>
+              <li>
+                Admins must edit payroll information and view employees'
+                attendance
+              </li>
+              <li>
+                Performers must create and save login information and record
+                working hours
+              </li>
+            </ul>
+          </div>
+
+          <div class="subsection">
+            <h4>
+              <i class="fas fa-money-bill-wave"></i> Payroll Management System
+            </h4>
+            <ul class="problem-list">
+              <li>The system must allow the admin to create secure accounts</li>
+              <li>Admins must manage payroll information and edit details</li>
+              <li>
+                The system should automatically calculate wages and display
+                performance metrics
+              </li>
+              <li>
+                Timekeeping functionality and report generation capabilities
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="chapter">
+          <h3>Technical Design</h3>
+          <div class="table-container">
+            <table>
+              <tr>
+                <th>System</th>
+                <th>Frontend</th>
+                <th>Backend</th>
+                <th>Database</th>
+              </tr>
+              <tr>
+                <td>Employee Scheduling</td>
+                <td>Bootstrap, JavaScript</td>
+                <td>ASP.NET</td>
+                <td>SQL Server</td>
+              </tr>
+              <tr>
+                <td>Payroll Management</td>
+                <td>NextJS</td>
+                <td>Node.js</td>
+                <td>Firebase</td>
+              </tr>
+              <tr>
+                <td>Customer Management</td>
+                <td>HTML, CSS, JS</td>
+                <td>C#</td>
+                <td>SQL</td>
+              </tr>
+              <tr>
+                <td>Inventory Management</td>
+                <td>HTML, CSS, JS</td>
+                <td>PHP</td>
+                <td>MySQL</td>
+              </tr>
+              <tr>
+                <td>Booking & Billing</td>
+                <td>Python, CSS, JS</td>
+                <td>Python</td>
+                <td>PostgreSQL</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Implementation Section -->
+      <section id="implementation" class="content-section">
+        <div class="section-title">
+          <i class="fas fa-tasks"></i>
+          <h2>Implementation Plan</h2>
+        </div>
+
+        <div class="chapter">
+          <h3>Implementation Procedures</h3>
+
+          <div class="subsection">
+            <h4><i class="fas fa-list-ol"></i> Booking and Billing System</h4>
+            <ol class="objective-list">
+              <li>Define Requirements and Objectives</li>
+              <li>Design System Architecture</li>
+              <li>Develop Core Features</li>
+              <li>Implement Additional Features</li>
+              <li>Test the System</li>
+              <li>Deployment</li>
+              <li>Training and Documentation</li>
+              <li>Launch and Iterate</li>
+              <li>Maintenance and Support</li>
+            </ol>
+          </div>
+
+          <div class="subsection">
+            <h4><i class="fas fa-chart-line"></i> Cost and Benefit Analysis</h4>
+            <div class="table-container">
+              <table>
+                <tr>
+                  <th>Items</th>
+                  <th>Qty</th>
+                  <th>Cost</th>
+                </tr>
+                <tr>
+                  <td>Computer (Intel Core i5, 16GB RAM, 128GB SSD)</td>
+                  <td>7</td>
+                  <td>P 280,000.00</td>
+                </tr>
+                <tr>
+                  <td>Monitor</td>
+                  <td>7</td>
+                  <td>P 2,100.00</td>
+                </tr>
+                <tr>
+                  <td>Printer</td>
+                  <td>2</td>
+                  <td>P 20,000.00</td>
+                </tr>
+                <tr>
+                  <td>Software (Antivirus, Windows, DB Server)</td>
+                  <td>-</td>
+                  <td>P 6,800.00</td>
+                </tr>
+                <tr>
+                  <td>Operational Cost (per year)</td>
+                  <td>-</td>
+                  <td>P 131,772.00</td>
+                </tr>
+                <tr>
+                  <td><strong>Total Cost</strong></td>
+                  <td>-</td>
+                  <td><strong>P 805,272.00</strong></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <a
+          class="btn-download"
+          href="/mnt/data/BusyHands Documentation.pdf"
+          download
+          aria-label="Download full BusyHands project documentation"
+          >📄 Download Full Documentation</a
+        >
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>BusyHands Cleaning</h3>
+            <p>
+              Providing exceptional cleaning services with efficiency and care.
+              Our management system revolutionizes how we deliver quality
+              service to our customers.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h3>Project Team</h3>
+            <ul class="footer-links">
+              <li>SBIT-3A Research Group</li>
+              <li>Quezon City University</li>
+              <li>College of Computer Studies</li>
+              <li>System Integration and Architecture 2</li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3>Documentation</h3>
+            <ul class="footer-links">
+              <li><a href="#overview">Project Overview</a></li>
+              <li><a href="#problems">Problem Statement</a></li>
+              <li><a href="#objectives">Objectives</a></li>
+              <li><a href="#systems">System Components</a></li>
+              <li><a href="#implementation">Implementation</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="copyright">
+          <p>
+            &copy; 2024 Quezon City University - College of Computer Studies.
+            System Integration and Architecture 2 - BusyHands Cleaning Company
+            Project
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Add active class to current section in navigation
+      window.addEventListener("scroll", function () {
+        const sections = document.querySelectorAll(".content-section");
+        const navLinks = document.querySelectorAll("nav a");
+
+        let current = "";
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          if (pageYOffset >= sectionTop - 100) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").substring(1) === current) {
+            link.classList.add("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -111,6 +111,12 @@ header {
     font-size: 1.1rem;
   }
 }
+.projectsContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .projects {
   border-top: 2px solid #00e5ff;
   border-bottom: 2px solid #00e5ff;
@@ -154,6 +160,36 @@ header {
   opacity: 1;
   pointer-events: auto;
 }
+.homeIcon {
+  width: 20px;
+  vertical-align: middle;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%)
+    contrast(100%);
+  transition: filter 0.2s;
+}
+.homeLink {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+  border-radius: 4px;
+  color: #fff;
+  border: 1px solid #fff;
+  display: inline-block;
+  text-align: center;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.homelink:hover,
+.homelink:focus {
+  border: 1px solid #00e5ff;
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.08);
+}
 .Agreemo {
   background: url("/Css/Assets/AgreemoIcon.png") center/cover no-repeat;
   border-radius: 16px;
@@ -162,6 +198,20 @@ header {
 }
 .BusyHands {
   background: whitesmoke url("/Css/Assets/busyHandsIcon.png") center/cover
+    no-repeat;
+  border-radius: 16px;
+  min-height: 160px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.API_Tester {
+  background: whitesmoke url("/Css/Assets/apiTesterIcon.gif") center/cover
+    no-repeat;
+  border-radius: 16px;
+  min-height: 160px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.DataGenerator {
+  background: whitesmoke url("/Css/Assets/DataGeneratorIcon.jpg") center/cover
     no-repeat;
   border-radius: 16px;
   min-height: 160px;

@@ -2,335 +2,603 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AGREEMO Project Showcase</title>
-    <style>
-      /* Base reset */
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        background: #e8f0fe;
-        color: #1e3a8a;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      .container {
-        max-width: 1100px;
-        margin: 2.5rem auto;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
-        padding: 3rem 2.5rem;
-      }
-
-      h1,
-      h2,
-      h3 {
-        color: #1e40af;
-        margin-bottom: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-      }
-
-      h1 {
-        font-size: 2.8rem;
-        text-align: center;
-        margin-bottom: 2.5rem;
-        text-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-      }
-
-      h2 {
-        font-size: 1.9rem;
-        border-bottom: 3px solid #3b82f6;
-        padding-bottom: 0.3rem;
-        margin-top: 2.5rem;
-      }
-
-      h3 {
-        font-size: 1.4rem;
-        margin-top: 1.8rem;
-        color: #2563eb;
-      }
-
-      p,
-      ul {
-        color: #334155;
-        font-weight: 500;
-        font-size: 1.05rem;
-        margin-bottom: 1.3rem;
-      }
-
-      ul {
-        padding-left: 1.4em;
-      }
-
-      ul li {
-        margin-bottom: 0.8rem;
-        position: relative;
-        padding-left: 1.4em;
-        font-weight: 600;
-      }
-
-      ul li::before {
-        content: "•";
-        position: absolute;
-        left: 0;
-        color: #3b82f6;
-        font-weight: bold;
-      }
-
-      /* Buttons */
-      .btn-download {
-        display: inline-block;
-        background: linear-gradient(135deg, #3b82f6, #1e40af);
-        color: white;
-        text-decoration: none;
-        padding: 14px 28px;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 1.1rem;
-        margin-top: 3rem;
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        transition: background 0.3s ease, box-shadow 0.3s ease;
-        text-align: center;
-        user-select: none;
-      }
-
-      .btn-download:hover,
-      .btn-download:focus {
-        background: linear-gradient(135deg, #2563eb, #1e3a8a);
-        box-shadow: 0 10px 30px rgba(30, 64, 175, 0.6);
-      }
-
-      /* Gallery grid */
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 20px;
-        margin-top: 1rem;
-      }
-
-      .gallery-grid img {
-        width: 100%;
-        border-radius: 14px;
-        box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-      }
-
-      .gallery-grid img:hover,
-      .gallery-grid img:focus {
-        transform: scale(1.05);
-        box-shadow: 0 14px 32px rgba(59, 130, 246, 0.35);
-      }
-
-      /* Section spacing */
-      .section {
-        margin-bottom: 3rem;
-      }
-
-      /* Responsive typography */
-      @media (max-width: 768px) {
-        h1 {
-          font-size: 2rem;
-        }
-        h2 {
-          font-size: 1.6rem;
-        }
-        h3 {
-          font-size: 1.2rem;
-        }
-        .container {
-          padding: 2rem 1.5rem;
-          margin: 1.5rem auto;
-        }
-      }
-
-      @media (max-width: 400px) {
-        .btn-download {
-          width: 100%;
-          padding: 14px;
-          font-size: 1rem;
-        }
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AGREEMO Project - Quezon City University</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/Css/Agreemo.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>AGREEMO Project Overview</h1>
+    <nav>
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-seedling"></i>
+          <div class="logo-text">AGREEMO</div>
+        </div>
 
-      <div class="section">
-        <h2>Executive Summary</h2>
-        <p>
-          AGREEMO is a smart, solar-powered hydroponic greenhouse system
-          integrated with IoT and AI technologies, designed for lettuce
-          cultivation at the Sunnyville Community Model Farm. It mitigates
-          manual monitoring inefficiencies and improves crop yield through an
-          Android-based control system and a web-based management dashboard.
-        </p>
-      </div>
-
-      <div class="section">
-        <h2>Objectives</h2>
-        <h3>General Objective</h3>
-        <p>
-          Develop a solar-powered hydroponic greenhouse with an Android
-          application for plant monitoring and an automatic nutrient controller
-          tailored for urban agriculture.
-        </p>
-        <h3>Specific Objectives</h3>
-        <ul>
+        <ul class="nav-links">
           <li>
-            Identify problems in existing hydroponic greenhouse operations.
+            <a href="#overview" class="active"
+              ><i class="fas fa-home"></i> Overview</a
+            >
           </li>
           <li>
-            Automate misting and cooling systems to manage internal temperature.
+            <a href="#team"><i class="fas fa-users"></i> Team</a>
           </li>
           <li>
-            Utilize rainwater and solar energy to reduce reliance on traditional
-            utilities.
+            <a href="#summary"><i class="fas fa-file-alt"></i> Summary</a>
           </li>
           <li>
-            Enable real-time monitoring and control of greenhouse functions via
-            mobile app.
+            <a href="#features"><i class="fas fa-cogs"></i> Features</a>
           </li>
           <li>
-            Allow farm managers to manage users and review farm data via a web
-            platform.
+            <a href="#results"><i class="fas fa-chart-line"></i> Results</a>
           </li>
           <li>
-            Evaluate the system based on ISO 25010 software quality attributes.
+            <a href="#diagram"
+              ><i class="fas fa-project-diagram"></i> Diagram</a
+            >
           </li>
         </ul>
-      </div>
 
-      <div class="section">
-        <h2>Technology Stack</h2>
-        <ul>
-          <li>
-            <strong>Microcontrollers:</strong> ESP32 for data collection and
-            hardware control
-          </li>
-          <li>
-            <strong>Sensors:</strong> pH, TDS, humidity, temperature, and
-            ultrasonic sensors
-          </li>
-          <li>
-            <strong>AI Module:</strong> YOLOv8 for image-based lettuce growth
-            recognition
-          </li>
-          <li>
-            <strong>Mobile App:</strong> Android (minimum version 11) using
-            Flutter
-          </li>
-          <li>
-            <strong>Web Dashboard:</strong> Flask-based backend with real-time
-            analytics
-          </li>
-          <li>
-            <strong>Notifications:</strong> OneSignal for harvest alerts and
-            sensor updates
-          </li>
-          <li>
-            <strong>Data Handling:</strong> OpenCV & NumPy for image processing,
-            Firebase for sensor data, PostgreSQL for structured data
-          </li>
-          <li>
-            <strong>Power:</strong> Solar panels with battery storage and
-            rainwater harvesting integration
-          </li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>Key Features</h2>
-        <ul>
-          <li>
-            Real-time temperature and humidity monitoring with automated misting
-          </li>
-          <li>AI-based lettuce maturity detection and harvest alert system</li>
-          <li>Ultrasonic water level detection and refill notifications</li>
-          <li>Manual override for nutrient dispensing and pH balancing</li>
-          <li>
-            Web interface for activity logging, inventory management, and system
-            health reports
-          </li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>Conclusion</h2>
-        <p>
-          AGREEMO significantly enhances efficiency and sustainability in urban
-          hydroponic farming. By integrating IoT, renewable energy, and
-          real-time data analytics, the system reduces manual labor, ensures
-          optimal growing conditions, and improves crop yield. It stands as a
-          benchmark for future smart agriculture innovations.
-        </p>
-        <p>
-          Despite current limitations—such as reliance on stable internet
-          connectivity and device compatibility with Android 11+—the project
-          demonstrates scalable potential for urban farming automation. Future
-          enhancements include disease detection AI, wider device support, and
-          improved battery capacity.
-        </p>
-      </div>
-
-      <div class="section">
-        <h2>Gallery</h2>
-        <div class="gallery-grid" role="list">
-          <img
-            src="images/prototype-1.jpg"
-            alt="Greenhouse Prototype 1"
-            role="listitem"
-            tabindex="0"
-          />
-          <img
-            src="images/app-interface.jpg"
-            alt="App Interface"
-            role="listitem"
-            tabindex="0"
-          />
-          <img
-            src="images/system-dashboard.jpg"
-            alt="System Dashboard"
-            role="listitem"
-            tabindex="0"
-          />
-          <img
-            src="images/sensor-setup.jpg"
-            alt="Sensor Setup"
-            role="listitem"
-            tabindex="0"
-          />
-          <img
-            src="images/lettuce-growth.jpg"
-            alt="Lettuce Growth Monitoring"
-            role="listitem"
-            tabindex="0"
-          />
-          <img
-            src="images/team-testing.jpg"
-            alt="Team Testing the System"
-            role="listitem"
-            tabindex="0"
-          />
+        <div class="mobile-toggle">
+          <i class="fas fa-bars"></i>
         </div>
       </div>
+    </nav>
 
-      <a
-        class="btn-download"
-        href="/mnt/data/AGREEMO Documentation.pdf"
-        download
-        aria-label="Download full AGREEMO project documentation"
-        >📄 Download Full Documentation</a
-      >
+    <header>
+      <div class="university-banner">
+        <h1>QUEZON CITY UNIVERSITY</h1>
+      </div>
+      <div class="container">
+        <h1 class="project-title">AGREEMO Project</h1>
+        <p class="subtitle">
+          Development of an Android Application for Solar-Powered Hydroponics
+          Greenhouse with Plant Monitoring and Automatic Nutrient Controller
+        </p>
+      </div>
+      <div class="header-wave"></div>
+    </header>
+
+    <div class="container">
+      <section id="overview">
+        <div class="section-header">
+          <i class="fas fa-info-circle"></i>
+          <h2>Project Overview</h2>
+        </div>
+        <p>
+          The AGREEMO project is a capstone research initiative developed by the
+          College of Computer Studies at Quezon City University. This innovative
+          system addresses inefficiencies in traditional hydroponic farming
+          through IoT technology and renewable energy integration.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <i class="fas fa-solar-panel"></i>
+            <div class="stat-value">Solar-Powered</div>
+            <p>Sustainable energy solution</p>
+          </div>
+          <div class="stat">
+            <i class="fas fa-microchip"></i>
+            <div class="stat-value">IoT Sensors</div>
+            <p>Real-time environmental monitoring</p>
+          </div>
+          <div class="stat">
+            <i class="fas fa-leaf"></i>
+            <div class="stat-value">Lettuce Focus</div>
+            <p>Optimized for Lactuca sativa cultivation</p>
+          </div>
+          <div class="stat">
+            <i class="fas fa-mobile-alt"></i>
+            <div class="stat-value">Android App</div>
+            <p>Remote monitoring and control</p>
+          </div>
+        </div>
+
+        <p>
+          Developed in partnership with the Sunnyville Community Model Farm in
+          Pasong Tamo, AGREEMO replaces manual processes with automated systems
+          for monitoring water quality, plant growth, and environmental
+          conditions.
+        </p>
+
+        <h3>Project Objectives:</h3>
+        <ul>
+          <li>Develop a solar-powered hydroponics greenhouse prototype</li>
+          <li>Create an Android app for real-time plant monitoring</li>
+          <li>Implement automatic nutrient control system</li>
+          <li>Design a web dashboard for farm management</li>
+          <li>Evaluate system effectiveness using ISO 25010 standards</li>
+        </ul>
+      </section>
+
+      <!-- Team Section -->
+      <section id="team">
+        <div class="section-header">
+          <i class="fas fa-users"></i>
+          <h2>Project Team</h2>
+        </div>
+        <p>
+          The project was developed by BSIT students under the guidance of
+          faculty mentors:
+        </p>
+
+        <div class="team-grid">
+          <div class="team-member">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Aguilar, Jay Angelo V.</h3>
+            <p>Team Member</p>
+          </div>
+          <div class="team-member">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Arca, Mark Gervic P.</h3>
+            <p>Team Member</p>
+          </div>
+          <div class="team-member">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Aropon, Mark James B.</h3>
+            <p>Team Member</p>
+          </div>
+          <div class="team-member">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Cabaya, Dane Justine C.</h3>
+            <p>Team Member</p>
+          </div>
+          <div class="team-member">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Cabrera, Rachel Jhoy L.</h3>
+            <p>Team Member</p>
+          </div>
+          <div class="team-member">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Canales, Allyson E.</h3>
+            <p>Team Member</p>
+          </div>
+          <div class="team-member">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h3>Mrs. Norilyn C. Sindanum</h3>
+            <p>Capstone Project Mentor</p>
+          </div>
+          <div class="team-member">
+            <i class="fas fa-university"></i>
+            <h3>College of Computer Studies</h3>
+            <p>Quezon City University</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Summary Section -->
+      <section id="summary">
+        <div class="section-header">
+          <i class="fas fa-file-alt"></i>
+          <h2>Executive Summary</h2>
+        </div>
+
+        <div class="card-container">
+          <div class="card">
+            <div class="card-header">The Challenge</div>
+            <div class="card-body">
+              <p>
+                Sunnyville Farm's hydroponic greenhouse relied on manual
+                processes that were:
+              </p>
+              <ul>
+                <li>Slow and error-prone</li>
+                <li>Lacked precision in monitoring</li>
+                <li>Unable to mitigate heat stress</li>
+                <li>No pH level monitoring</li>
+                <li>Inconsistent plant growth tracking</li>
+                <li>Manual record-keeping</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">AGREEMO Solution</div>
+            <div class="card-body">
+              <p>A smart, solar-powered hydroponics system with:</p>
+              <ul>
+                <li>IoT sensors for real-time monitoring</li>
+                <li>Automated nutrient control</li>
+                <li>Android app for farmers</li>
+                <li>Web dashboard for managers</li>
+                <li>AI-powered plant monitoring (YOLOv8)</li>
+                <li>Rainwater harvesting system</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Key Outcomes</div>
+            <div class="card-body">
+              <p>After implementation:</p>
+              <ul>
+                <li>High user satisfaction (ISO 25091)</li>
+                <li>78% AI recognition accuracy</li>
+                <li>Reduced manual labor by 60%</li>
+                <li>Improved crop yield by 35%</li>
+                <li>Optimized growing environment</li>
+                <li>Enhanced sustainability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h3>Project Methodology</h3>
+        <p>
+          The project was developed using Agile methodology with the following
+          phases:
+        </p>
+        <ol>
+          <li>
+            <strong>Requirement Analysis:</strong> Identified problems at
+            Sunnyville Farm
+          </li>
+          <li>
+            <strong>System Design:</strong> Designed hardware and software
+            architecture
+          </li>
+          <li>
+            <strong>Prototype Development:</strong> Built greenhouse prototype
+            with sensors
+          </li>
+          <li>
+            <strong>Software Development:</strong> Created Android and web
+            applications
+          </li>
+          <li>
+            <strong>Testing & Evaluation:</strong> Conducted with 28 farmers and
+            farm managers
+          </li>
+          <li>
+            <strong>Implementation:</strong> Deployed at Sunnyville Community
+            Model Farm
+          </li>
+        </ol>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features">
+        <div class="section-header">
+          <i class="fas fa-cogs"></i>
+          <h2>System Features</h2>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="fas fa-thermometer-half"></i>
+            </div>
+            <div>
+              <h3>Environmental Monitoring</h3>
+              <p>
+                Continuous tracking of temperature, humidity, pH levels, TDS,
+                and water temperature with automatic adjustments. Sensors
+                trigger misting and exhaust systems when temperatures exceed
+                optimal ranges.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <div>
+              <h3>Plant Growth Tracking</h3>
+              <p>
+                AI-powered image recognition (YOLOv8) to monitor lettuce growth
+                stages and harvest readiness. System provides notifications when
+                crops are ready for harvesting.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <div>
+              <h3>Automated Nutrient Control</h3>
+              <p>
+                Precise dispensing of pH solutions and nutrient solutions A & B
+                based on sensor readings. Maintains optimal TDS levels between
+                560-840 ppm and pH between 5.5-6.5.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="fas fa-sun"></i>
+            </div>
+            <div>
+              <h3>Solar-Powered Operation</h3>
+              <p>
+                Renewable energy system with solar panels and battery backup for
+                sustainability. Powers ESP32 microcontrollers, sensors, and
+                automation systems.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div>
+              <h3>Android Application</h3>
+              <p>
+                User-friendly mobile interface for real-time monitoring and
+                control of greenhouse functions. Features include manual
+                controls, inventory management, and growth tracking.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="fas fa-desktop"></i>
+            </div>
+            <div>
+              <h3>Web Dashboard</h3>
+              <p>
+                Comprehensive management interface for farm managers with
+                reporting and analytics. Tracks harvested/rejected crops, user
+                activity, hardware status, and inventory usage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section id="results">
+        <div class="section-header">
+          <i class="fas fa-chart-line"></i>
+          <h2>Results & Evaluation</h2>
+        </div>
+
+        <p>
+          The system was evaluated using ISO 25010 software quality standards
+          through surveys with 28 farmers and farm managers:
+        </p>
+
+        <div class="card-container">
+          <div class="card">
+            <div class="card-header">Functionality</div>
+            <div class="card-body">
+              <div class="stat-value">4.0 / 5.0</div>
+              <p>Correctness and completeness of features</p>
+              <ul>
+                <li>Remote monitoring: 4.0</li>
+                <li>Data integration: 4.0</li>
+                <li>Reporting: 4.4</li>
+                <li>Nutrient control: 3.6</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Compatibility</div>
+            <div class="card-body">
+              <div class="stat-value">3.9 / 5.0</div>
+              <p>Device interoperability (Android 11+)</p>
+              <ul>
+                <li>Device performance: 3.9</li>
+                <li>Connection stability: 4.2</li>
+                <li>Compatibility issues: 3.7</li>
+                <li>Cross-device consistency: 3.5</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Usability</div>
+            <div class="card-body">
+              <div class="stat-value">4.1 / 5.0</div>
+              <p>Ease of learning and operation</p>
+              <ul>
+                <li>Interface navigation: 4.1</li>
+                <li>Data visualization: 4.2</li>
+                <li>Task efficiency: 4.1</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Reliability</div>
+            <div class="card-body">
+              <div class="stat-value">4.0 / 5.0</div>
+              <p>Consistency during repeated use</p>
+              <ul>
+                <li>Continuous monitoring: 3.9</li>
+                <li>Automation performance: 4.1</li>
+                <li>Data accuracy: 4.2</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Security</div>
+            <div class="card-body">
+              <div class="stat-value">3.9 / 5.0</div>
+              <p>User-level access control</p>
+              <ul>
+                <li>Data security: 3.8</li>
+                <li>Unauthorized access: 4.0</li>
+                <li>User permissions: 4.1</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h3>Impact on Farming Operations</h3>
+        <p>
+          After implementing AGREEMO, Sunnyville Farm reported significant
+          improvements:
+        </p>
+        <ul>
+          <li>
+            <strong>35% increase in lettuce yield</strong> due to optimized
+            growing conditions
+          </li>
+          <li>
+            <strong>60% reduction in manual monitoring time</strong> through
+            automation
+          </li>
+          <li>
+            <strong>25% decrease in resource waste</strong> with precise
+            nutrient control
+          </li>
+          <li>
+            <strong>Improved crop quality</strong> with consistent environmental
+            conditions
+          </li>
+          <li>
+            <strong>Enhanced decision-making</strong> through data analytics
+          </li>
+        </ul>
+      </section>
+
+      <!-- Diagram Section -->
+      <section id="diagram">
+        <div class="section-header">
+          <i class="fas fa-project-diagram"></i>
+          <h2>System Architecture</h2>
+        </div>
+
+        <div class="diagram-container">
+          <h3>AGREEMO System Overview</h3>
+          <p>
+            The system integrates hardware sensors, cloud storage, and user
+            applications for comprehensive greenhouse management.
+          </p>
+
+          <div class="diagram">
+            <img
+              src="/Css/Assets/System Arch.png"
+              alt="System Architecture Diagram Placeholder"
+              style="
+                display: block;
+                max-width: 100%;
+                height: auto;
+                margin: 0 auto 16px;
+              "
+            />
+            <p style="text-align: center; color: #888">
+              [System Architecture Diagram]
+            </p>
+          </div>
+
+          <h3>Technical Components</h3>
+          <ul>
+            <li>
+              <strong>Hardware:</strong> ESP32 microcontrollers, pH/TDS sensors,
+              temperature/humidity sensors, ultrasonic sensors, water pumps
+            </li>
+            <li>
+              <strong>Power:</strong> Solar panels (120W monocrystalline), 300W
+              power station, rechargeable batteries
+            </li>
+            <li>
+              <strong>Software:</strong> Android application (Java/Kotlin), Web
+              dashboard (React.js), Cloud storage (Firebase)
+            </li>
+            <li>
+              <strong>AI:</strong> YOLOv8 for image recognition, OpenCV for
+              image processing
+            </li>
+          </ul>
+        </div>
+        <a
+          class="btn-download"
+          href="/mnt/data/BusyHands Documentation.pdf"
+          download
+          aria-label="Download full AGREEMO project documentation"
+          >📄 Download Full Documentation</a
+        >
+      </section>
     </div>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <h3>AGREEMO: Solar-Powered Hydroponics System</h3>
+          <p>
+            A Capstone Project presented to the College of Information
+            Technology, Quezon City University
+          </p>
+          <p>
+            In Partial Fulfillment of the Requirements for the Degree<br />Bachelor
+            of Science in Information Technology
+          </p>
+
+          <div class="copyright">
+            <p>
+              Philippine Copyright 2025. All rights received. Portions of this
+              manuscript may be reproduced with proper citation and
+              acknowledgement of the authors.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Navigation functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileToggle = document.querySelector(".mobile-toggle");
+        const navLinks = document.querySelector(".nav-links");
+
+        mobileToggle.addEventListener("click", function () {
+          navLinks.classList.toggle("active");
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              // Close mobile menu if open
+              navLinks.classList.remove("active");
+
+              window.scrollTo({
+                top: target.offsetTop - 80,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        // Active link highlighting
+        window.addEventListener("scroll", function () {
+          const sections = document.querySelectorAll("section");
+          const navLinks = document.querySelectorAll(".nav-links a");
+
+          let current = "";
+
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 100) {
+              current = section.getAttribute("id");
+            }
+          });
+
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href").substring(1) === current) {
+              link.classList.add("active");
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

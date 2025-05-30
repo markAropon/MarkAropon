@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API Tester Pro - Light</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/Css/apiTester.css" />
+  </head>
+  <body>
+    <header>
+      <h1><i class="fas fa-cloud-upload-alt"></i> My API Tester</h1>
+    </header>
+    <div class="container">
+      <!-- Left Column -->
+      <div>
+        <div class="card">
+          <h2><i class="fas fa-sliders-h"></i> Request Configuration</h2>
+
+          <div class="section">
+            <div class="form-row">
+              <div>
+                <label for="method">HTTP Method</label>
+                <select id="method" name="method" aria-label="HTTP Method">
+                  <option>GET</option>
+                  <option>POST</option>
+                  <option>PUT</option>
+                  <option>DELETE</option>
+                  <option>PATCH</option>
+                  <option>HEAD</option>
+                  <option>OPTIONS</option>
+                </select>
+              </div>
+              <div>
+                <label for="contentType">Content Type</label>
+                <select id="contentType" name="contentType">
+                  <option value="application/json">JSON</option>
+                  <option value="application/xml">XML</option>
+                  <option value="text/plain">Text</option>
+                  <option value="application/x-www-form-urlencoded">
+                    Form Data
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="section">
+              <label for="url">Request URL</label>
+              <input
+                type="url"
+                id="url"
+                name="url"
+                placeholder="https://api.example.com/data"
+                required
+                aria-required="true"
+              />
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="collapse-header">
+              <h3><i class="fas fa-heading"></i> Headers</h3>
+              <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="collapse-content">
+              <!-- No default-open, so collapsed by default -->
+              <div class="header-list" id="headers-list">
+                <!-- Header items will be added here -->
+              </div>
+              <button class="add-header-btn btn-small">
+                <i class="fas fa-plus"></i> Add Header
+              </button>
+
+              <div class="data-gen-controls">
+                <button class="btn-small" id="generate-headers">
+                  <!-- Removed btn-purple for uniform blue theme -->
+                  <i class="fas fa-wand-magic-sparkles"></i> Generate Common
+                  Headers
+                </button>
+                <div class="tooltip">
+                  <i class="fas fa-info-circle info-icon"></i>
+                  <span class="tooltiptext"
+                    >Automatically adds common headers based on Content
+                    Type</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="collapse-header">
+              <h3><i class="fas fa-file-alt"></i> Body</h3>
+              <!-- Changed icon -->
+              <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="collapse-content">
+              <!-- No default-open, so collapsed by default -->
+              <div class="tabs" id="request-body-tabs">
+                <div class="tab active" data-tab="raw">Raw</div>
+                <div class="tab" data-tab="form">Form Data</div>
+              </div>
+              <div class="tab-content-container">
+                <div class="tab-content active" id="raw-tab">
+                  <textarea
+                    id="body"
+                    name="body"
+                    placeholder='{"key": "value"}'
+                    aria-label="Request body"
+                  ></textarea>
+
+                  <div class="data-gen-controls">
+                    <button class="btn-small" id="generate-from-response">
+                      <i class="fas fa-wand-magic-sparkles"></i> Generate from
+                      Response
+                    </button>
+                    <button class="btn-small" id="custom-generator">
+                      <i class="fas fa-cogs"></i> Custom Data Generator
+                      <!-- Changed icon -->
+                    </button>
+                    <div class="tooltip">
+                      <i class="fas fa-info-circle info-icon"></i>
+                      <span class="tooltiptext"
+                        >Create sample data based on API response or custom
+                        fields</span
+                      >
+                    </div>
+                  </div>
+
+                  <div class="data-gen-panel" id="custom-data-panel">
+                    <div class="data-gen-header">
+                      <h3>Custom Data Generator</h3>
+                      <button class="btn-small" id="close-data-panel">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+
+                    <div id="data-fields">
+                      <!-- Data fields will be added here -->
+                    </div>
+
+                    <button class="btn-small" id="add-data-field">
+                      <i class="fas fa-plus-circle"></i> Add Field
+                      <!-- Changed icon -->
+                    </button>
+
+                    <div class="data-gen-actions">
+                      <button class="btn-small" id="generate-custom-data">
+                        <i class="fas fa-bolt"></i> Generate Data
+                      </button>
+                      <button class="btn-small" id="reset-data-fields">
+                        <i class="fas fa-undo"></i> Reset
+                        <!-- Changed icon -->
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="form-tab">
+                  <div class="header-list" id="form-data-list">
+                    <!-- Form data fields will be added here -->
+                  </div>
+                  <button class="add-form-data-btn btn-small">
+                    <i class="fas fa-plus-circle"></i> Add Field
+                    <!-- Changed icon -->
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="collapse-header">
+              <h3><i class="fas fa-history"></i> History</h3>
+              <i class="fas fa-chevron-right"></i>
+              <!-- Will be right by default (closed) -->
+            </div>
+            <div class="collapse-content">
+              <!-- No default-open, so collapsed by default -->
+              <div class="history-controls">
+                <button id="clear-history" class="btn-small">
+                  <i class="fas fa-trash-alt"></i> Clear History
+                  <!-- Changed icon -->
+                </button>
+                <button id="save-request" class="btn-small">
+                  <i class="fas fa-save"></i> Save Request
+                </button>
+              </div>
+              <div id="history-container">
+                <!-- History items will be added here -->
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="send-request" aria-label="Send API request">
+            <i class="fas fa-paper-plane"></i> Send Request
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div>
+        <div class="card">
+          <h2><i class="fas fa-hdd"></i> Response</h2>
+          <!-- Changed icon -->
+
+          <div class="response-info">
+            <div>
+              <span class="status-code" id="status-code">Status</span>
+              <!-- Placeholder -->
+            </div>
+            <div class="response-time" id="response-time">Time: ---</div>
+          </div>
+
+          <div class="tabs" id="response-view-tabs">
+            <div class="tab active" data-tab="body">Body</div>
+            <div class="tab" data-tab="headers">Headers</div>
+            <div class="tab" data-tab="cookies">Cookies</div>
+          </div>
+          <div class="tab-content-container">
+            <div class="tab-content active" id="response-body">
+              <pre id="response" aria-live="polite" aria-atomic="true">
+(No response yet)</pre
+              >
+            </div>
+
+            <div class="tab-content" id="response-headers">
+              <pre id="response-headers-content">(No headers yet)</pre>
+            </div>
+
+            <div class="tab-content" id="response-cookies">
+              <pre id="response-cookies-content">(No cookies yet)</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/Js/ApiTester.js"></script>
+  </body>
+</html>

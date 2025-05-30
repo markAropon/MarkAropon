@@ -6,30 +6,58 @@
     <title>Web Profile</title>
     <link rel="stylesheet" href="/Css/webProfile.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <header>
-    <div class="imageHolder">
-      <img src="/Css//Assets/profile.jpg" alt="My profile" />
-    </div>
-
-    <div class="titleHolder">
-      <h1>Mark James B. Aropon</h1>
-      <hr />
-      <p>Web Developer | Designer | Programmer</p>
-    </div>
-  </header>
+  </head>
   <body>
+    <header>
+      <div class="imageHolder">
+        <img src="/Css//Assets/profile.jpg" alt="My profile" />
+      </div>
+
+      <div class="titleHolder">
+        <h1>Mark James B. Aropon</h1>
+        <hr />
+        <p>Web Developer | Designer | Programmer</p>
+      </div>
+    </header>
     <section class="projects">
       <h2>My projects</h2>
-      <div
-        class="projectsContainer"
-        style="display: flex; align-items: center; gap: 1rem"
-      >
-        <div class="projectCards Agreemo" id="Agreemo" onclick="window.location.href='/Pages/Projects/Agreemo.html'">
+      <div class="projectsContainer">
+        <div
+          class="projectCards Agreemo"
+          id="Agreemo"
+          onclick="window.location.href='/Pages/Projects/Agreemo.html'"
+        >
           <h4>Agreemo</h4>
         </div>
-        <div class="projectCards BusyHands"><h4>Busy Hands</h4></div>
+        <div
+          class="projectCards BusyHands"
+          onclick="window.location.href='/Pages/Projects/BusyHands.html'"
+        >
+          <h4>Busy Hands</h4>
+        </div>
+        <div
+          class="projectCards API_Tester"
+          id="API_Tester"
+          onclick="window.location.href='/Pages/Projects/API_Tester.html'"
+        >
+          <h4>API Tester</h4>
+        </div>
+        <div
+          class="projectCards DataGenerator"
+          id="DataGenerator"
+          onclick="window.location.href='/Pages/Projects/DataGenerator.html'"
+        >
+          <h4>Data Generator</h4>
+        </div>
       </div>
     </section>
     <script src="/Js/webProfile.js"></script>
+    <a class="homeLink" href="/Pages/HomePage.html">
+      <img
+        src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/svgs/solid/house.svg"
+        alt="Home"
+        class="homeIcon"
+      />
+    </a>
   </body>
 </html>
