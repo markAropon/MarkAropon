@@ -191,27 +191,27 @@ header {
   background: rgba(0, 229, 255, 0.08);
 }
 .Agreemo {
-  background: url("/Css/Assets/AgreemoIcon.png") center/cover no-repeat;
+  background: url("../Css/Assets/AgreemoIcon.png") center/cover no-repeat;
   border-radius: 16px;
   min-height: 160px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 .BusyHands {
-  background: whitesmoke url("/Css/Assets/busyHandsIcon.png") center/cover
+  background: whitesmoke url("../Css/Assets/busyHandsIcon.png") center/cover
     no-repeat;
   border-radius: 16px;
   min-height: 160px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 .API_Tester {
-  background: whitesmoke url("/Css/Assets/apiTesterIcon.gif") center/cover
+  background: whitesmoke url("../Css/Assets/apiTesterIcon.gif") center/cover
     no-repeat;
   border-radius: 16px;
   min-height: 160px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 .DataGenerator {
-  background: whitesmoke url("/Css/Assets/DataGeneratorIcon.jpg") center/cover
+  background: whitesmoke url("../Css/Assets/DataGeneratorIcon.jpg") center/cover
     no-repeat;
   border-radius: 16px;
   min-height: 160px;
