@@ -2,19 +2,807 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Generator</title>
-  </head>
-  <body>
-    <div
-      style="
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Custom Data Generator with Template</title>
+    <style>
+      /* Reset */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #e9eff5;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
+        align-items: flex-start;
+        padding: 40px 20px;
+      }
+      .container {
+        max-width: 900px;
+        width: 100%;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        padding: 32px 40px 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-weight: 700;
+        text-align: center;
+        color: #1a1a1a;
+        font-size: 2.2rem;
+        user-select: none;
+      }
+      /* Sections */
+      section {
+        border: 1px solid #d1d9e6;
+        border-radius: 8px;
+        padding: 20px 24px;
+        background: #fafbfc;
+      }
+      section h2 {
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: #2c3e50;
+        border-bottom: 1px solid #cbd5e1;
+        padding-bottom: 6px;
+        user-select: none;
+      }
+
+      /* Field editor */
+      #fields {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-height: 280px;
+        overflow-y: auto;
+        padding-right: 8px;
+      }
+      .field-row {
+        display: flex;
+        gap: 12px;
         align-items: center;
-        height: 100vh;
-      "
-    >
-      <h1>work in progress!!</h1>
+      }
+      .field-row input[type="text"] {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1.5px solid #bcccdc;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+      .field-row input[type="text"]:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 4px #4a90e2aa;
+      }
+      .field-row select {
+        width: 140px;
+        padding: 7px 12px;
+        border: 1.5px solid #bcccdc;
+        border-radius: 6px;
+        font-size: 1rem;
+        background: white;
+        cursor: pointer;
+        transition: border-color 0.3s;
+      }
+      .field-row select:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 4px #4a90e2aa;
+      }
+      .field-row input.custom-input {
+        width: 160px;
+      }
+      .field-row button.remove-btn {
+        background: #e74c3c;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        padding: 8px 14px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 1.15rem;
+        line-height: 1;
+        user-select: none;
+        transition: background-color 0.3s;
+        flex-shrink: 0;
+      }
+      .field-row button.remove-btn:hover {
+        background: #c0392b;
+      }
+
+      /* Add Field Button */
+      #addFieldBtn {
+        margin-top: 12px;
+        background: #2980b9;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        user-select: none;
+        width: fit-content;
+      }
+      #addFieldBtn:hover {
+        background: #217dbb;
+      }
+
+      /* Controls */
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      label {
+        font-weight: 600;
+        user-select: none;
+        font-size: 1rem;
+      }
+      input[type="number"] {
+        width: 80px;
+        padding: 6px 12px;
+        font-size: 1rem;
+        border-radius: 6px;
+        border: 1.5px solid #bcccdc;
+        transition: border-color 0.3s;
+      }
+      input[type="number"]:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 4px #4a90e2aa;
+      }
+      select#templateSelector {
+        padding: 6px 12px;
+        font-size: 1rem;
+        border-radius: 6px;
+        border: 1.5px solid #bcccdc;
+        cursor: pointer;
+        transition: border-color 0.3s;
+        user-select: none;
+        min-width: 140px;
+      }
+      select#templateSelector:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 4px #4a90e2aa;
+      }
+
+      /* Template editor */
+      #templateInput {
+        width: 100%;
+        height: 140px;
+        font-family: "Source Code Pro", monospace, monospace;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        padding: 14px 18px;
+        border-radius: 8px;
+        border: 1.5px solid #cbd5e1;
+        background: #f7fafc;
+        resize: vertical;
+        transition: border-color 0.3s;
+        font-variant-ligatures: none;
+      }
+      #templateInput:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 6px #4a90e2cc;
+      }
+
+      /* Generate Button */
+      #generateBtn {
+        margin-top: 16px;
+        padding: 14px 32px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 8px;
+        background-color: #27ae60;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        user-select: none;
+        width: fit-content;
+        align-self: center;
+      }
+      #generateBtn:hover {
+        background-color: #1e8449;
+      }
+
+      /* Output */
+      #outputSection {
+        position: relative;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      #output {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        font-family: "Source Code Pro", monospace, monospace;
+        font-size: 0.9rem;
+        padding: 20px;
+        border-radius: 10px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        min-height: 180px;
+        max-height: 400px;
+        user-select: text;
+      }
+
+      /* Copy output button */
+      #copyBtn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #2980b9;
+        border: none;
+        padding: 6px 12px;
+        color: white;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s;
+        font-size: 0.85rem;
+        z-index: 10;
+      }
+      #copyBtn:hover {
+        background: #217dbb;
+      }
+
+      /* Scrollbar styling for fields and output */
+      #fields::-webkit-scrollbar,
+      #output::-webkit-scrollbar {
+        height: 8px;
+        width: 8px;
+      }
+      #fields::-webkit-scrollbar-thumb,
+      #output::-webkit-scrollbar-thumb {
+        background: #a0aec0;
+        border-radius: 6px;
+      }
+      #fields::-webkit-scrollbar-track,
+      #output::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+
+      /* Responsive */
+      @media (max-width: 760px) {
+        .field-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .field-row input[type="text"],
+        .field-row select,
+        .field-row input.custom-input {
+          width: 100%;
+        }
+        .field-row button.remove-btn {
+          width: 100%;
+          margin-top: 6px;
+        }
+        .controls {
+          flex-direction: column;
+          gap: 12px;
+        }
+        #addFieldBtn,
+        #generateBtn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" role="main" aria-label="Custom Data Generator">
+      <h1>Custom Data Generator</h1>
+
+      <section aria-labelledby="fieldsHeader">
+        <h2 id="fieldsHeader">Fields Definition</h2>
+        <div
+          id="fields"
+          aria-live="polite"
+          aria-relevant="additions removals"
+        ></div>
+        <button id="addFieldBtn" type="button" aria-label="Add new field">
+          + Add Field
+        </button>
+      </section>
+
+      <section aria-labelledby="templateHeader">
+        <h2 id="templateHeader">Output Template</h2>
+        <div class="controls">
+          <label for="recordCount">Number of Records:</label>
+          <input
+            id="recordCount"
+            type="number"
+            min="1"
+            value="5"
+            aria-describedby="recordCountHelp"
+          />
+          <span id="recordCountHelp" class="sr-only"
+            >Enter how many records to generate</span
+          >
+
+          <label for="templateSelector">Choose Template:</label>
+          <select id="templateSelector" aria-describedby="templateSelectorHelp">
+            <option value="json">JSON Array</option>
+            <option value="sql">SQL INSERT</option>
+            <option value="csv">CSV</option>
+            <option value="custom">Custom Template</option>
+          </select>
+          <span id="templateSelectorHelp" class="sr-only"
+            >Select from predefined templates or use custom</span
+          >
+        </div>
+
+        <textarea
+          id="templateInput"
+          aria-label="Template editor"
+          placeholder="Write your custom template here. Use {{fieldName}} for placeholders."
+          spellcheck="false"
+        ></textarea>
+        <button id="generateBtn" type="button" aria-label="Generate output">
+          Generate
+        </button>
+      </section>
+
+      <section aria-labelledby="outputHeader" id="outputSection">
+        <h2 id="outputHeader">Generated Output</h2>
+        <button
+          id="copyBtn"
+          type="button"
+          aria-label="Copy output to clipboard"
+        >
+          Copy
+        </button>
+        <pre
+          id="output"
+          tabindex="0"
+          aria-live="polite"
+          aria-atomic="true"
+        ></pre>
+      </section>
     </div>
+
+    <script>
+      (() => {
+        // Available data types
+        const dataTypes = [
+          { value: "name", label: "Name" },
+          { value: "firstName", label: "First Name" },
+          { value: "lastName", label: "Last Name" },
+          { value: "fullName", label: "Full Name" },
+          { value: "email", label: "Email" },
+          { value: "username", label: "Username" },
+          { value: "number", label: "Number" },
+          { value: "integer", label: "Integer" },
+          { value: "float", label: "Float" },
+          { value: "boolean", label: "Boolean" },
+          { value: "date", label: "Date" },
+          { value: "time", label: "Time" },
+          { value: "dateTime", label: "Date & Time" },
+          { value: "phone", label: "Phone Number" },
+          { value: "address", label: "Address" },
+          { value: "city", label: "City" },
+          { value: "state", label: "State" },
+          { value: "country", label: "Country" },
+          { value: "zip", label: "ZIP/Postal Code" },
+          { value: "company", label: "Company" },
+          { value: "jobTitle", label: "Job Title" },
+          { value: "url", label: "URL" },
+          { value: "ip", label: "IP Address" },
+          { value: "uuid", label: "UUID" },
+          { value: "color", label: "Color (Hex)" },
+          { value: "paragraph", label: "Paragraph" },
+          { value: "sentence", label: "Sentence" },
+          { value: "word", label: "Word" },
+          { value: "custom", label: "Custom" },
+        ];
+
+        const container = document.querySelector(".container");
+        const fieldsDiv = document.getElementById("fields");
+        const addFieldBtn = document.getElementById("addFieldBtn");
+        const recordCountInput = document.getElementById("recordCount");
+        const templateSelector = document.getElementById("templateSelector");
+        const templateInput = document.getElementById("templateInput");
+        const generateBtn = document.getElementById("generateBtn");
+        const outputPre = document.getElementById("output");
+        const copyBtn = document.getElementById("copyBtn");
+
+        // Default templates
+        const templates = {
+          json: `[
+  {{#records}}
+  {
+    {{#fields}}
+    "{{fieldName}}": "{{value}}"{{#comma}}
+    {{/comma}}
+    {{/fields}}
+  }{{#comma}}
+  {{/comma}}
+  {{/records}}
+]`,
+          sql: `INSERT INTO table_name ({{#fields}}{{fieldName}}{{#comma}}, {{/comma}}{{/fields}}) VALUES
+{{#records}}({{#fields}}'{{value}}'{{#comma}}, {{/comma}}{{/fields}}){{#comma}},
+{{/comma}}{{/records}};`,
+          csv: `{{#fields}}{{fieldName}}{{#comma}},{{/comma}}{{/fields}}
+{{#records}}{{#fields}}{{value}}{{#comma}},{{/comma}}{{/fields}}
+{{/records}}`,
+        };
+
+        // Escape CSV fields
+        function escapeCSV(value) {
+          if (typeof value !== "string") value = String(value);
+          if (
+            value.includes(",") ||
+            value.includes('"') ||
+            value.includes("\n")
+          ) {
+            return `"${value.replace(/"/g, '""')}"`;
+          }
+          return value;
+        }
+
+        // Generate fake data for a field based on type
+        function generateFakeData(type, customValue) {
+          switch (type) {
+            case "name":
+              const firstNames = [
+                "Alice",
+                "Bob",
+                "Charlie",
+                "Diana",
+                "Eve",
+                "Frank",
+                "Grace",
+                "Hank",
+                "Ivy",
+                "Jack",
+              ];
+              const lastNames = [
+                "Smith",
+                "Johnson",
+                "Williams",
+                "Jones",
+                "Brown",
+                "Davis",
+                "Miller",
+                "Wilson",
+                "Moore",
+                "Taylor",
+              ];
+              return `${
+                firstNames[Math.floor(Math.random() * firstNames.length)]
+              } ${lastNames[Math.floor(Math.random() * lastNames.length)]}`;
+            case "email":
+              const domains = [
+                "example.com",
+                "test.org",
+                "demo.net",
+                "sample.io",
+              ];
+              const namePart = Math.random().toString(36).substring(2, 8);
+              return `${namePart}@${
+                domains[Math.floor(Math.random() * domains.length)]
+              }`;
+            case "number":
+              return (Math.floor(Math.random() * 9000) + 1000).toString();
+            case "date":
+              const start = new Date(2010, 0, 1).getTime();
+              const end = new Date().getTime();
+              const date = new Date(start + Math.random() * (end - start));
+              return date.toISOString().slice(0, 10);
+            case "custom":
+              return customValue || "";
+            default:
+              return "";
+          }
+        }
+
+        // Render fields list UI
+        function renderFields() {
+          fieldsDiv.innerHTML = "";
+          for (const [index, field] of fields.entries()) {
+            const row = document.createElement("div");
+            row.className = "field-row";
+            row.dataset.index = index;
+
+            // Field Name
+            const nameInput = document.createElement("input");
+            nameInput.type = "text";
+            nameInput.placeholder = "Field name (e.g. firstName)";
+            nameInput.value = field.name;
+            nameInput.autocomplete = "off";
+            nameInput.spellcheck = false;
+            nameInput.required = true;
+            nameInput.setAttribute(
+              "aria-label",
+              `Field name for field #${index + 1}`
+            );
+            nameInput.addEventListener("input", (e) => {
+              fields[index].name = e.target.value.trim();
+            });
+
+            // Type selector
+            const typeSelect = document.createElement("select");
+            typeSelect.setAttribute(
+              "aria-label",
+              `Field type for field "${field.name || "Unnamed"}"`
+            );
+            for (const type of dataTypes) {
+              const opt = document.createElement("option");
+              opt.value = type.value;
+              opt.textContent = type.label;
+              if (field.type === type.value) opt.selected = true;
+              typeSelect.appendChild(opt);
+            }
+            typeSelect.addEventListener("change", (e) => {
+              fields[index].type = e.target.value;
+              if (e.target.value !== "custom") {
+                fields[index].customValue = "";
+                renderFields();
+              } else {
+                renderFields();
+              }
+            });
+
+            // Custom input only for custom type
+            let customInput;
+            if (field.type === "custom") {
+              customInput = document.createElement("input");
+              customInput.type = "text";
+              customInput.placeholder = "Custom value";
+              customInput.className = "custom-input";
+              customInput.value = field.customValue || "";
+              customInput.setAttribute(
+                "aria-label",
+                `Custom value for field "${field.name || "Unnamed"}"`
+              );
+              customInput.autocomplete = "off";
+              customInput.spellcheck = false;
+              customInput.addEventListener("input", (e) => {
+                fields[index].customValue = e.target.value;
+              });
+            }
+
+            // Remove button
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.className = "remove-btn";
+            removeBtn.setAttribute(
+              "aria-label",
+              `Remove field "${field.name || "Unnamed"}"`
+            );
+            removeBtn.textContent = "×";
+            removeBtn.addEventListener("click", () => {
+              fields.splice(index, 1);
+              renderFields();
+            });
+
+            row.appendChild(nameInput);
+            row.appendChild(typeSelect);
+            if (customInput) row.appendChild(customInput);
+            row.appendChild(removeBtn);
+
+            fieldsDiv.appendChild(row);
+          }
+        }
+
+        // Initialize with two fields
+        let fields = [
+          { name: "firstName", type: "name", customValue: "" },
+          { name: "email", type: "email", customValue: "" },
+        ];
+
+        renderFields();
+
+        // Add new field button
+        addFieldBtn.addEventListener("click", () => {
+          fields.push({ name: "", type: "name", customValue: "" });
+          renderFields();
+        });
+
+        // When template selector changes, load the predefined template or clear for custom
+        templateSelector.addEventListener("change", () => {
+          const val = templateSelector.value;
+          if (val !== "custom") {
+            templateInput.value = templates[val] || "";
+            templateInput.disabled = true;
+          } else {
+            templateInput.value = "";
+            templateInput.disabled = false;
+            templateInput.focus();
+          }
+        });
+
+        // On load, set templateInput to JSON and disable editing
+        templateInput.value = templates.json;
+        templateInput.disabled = true;
+
+        // Generate output
+        generateBtn.addEventListener("click", () => {
+          const count = Number(recordCountInput.value);
+          if (!Number.isInteger(count) || count <= 0) {
+            alert("Please enter a valid number of records (1 or more).");
+            return;
+          }
+
+          // Validate fields
+          for (const f of fields) {
+            if (!f.name.trim()) {
+              alert("Please fill in all field names.");
+              return;
+            }
+          }
+
+          // Generate data records
+          const records = [];
+          for (let i = 0; i < count; i++) {
+            const record = {};
+            for (const f of fields) {
+              record[f.name] = generateFakeData(f.type, f.customValue);
+            }
+            records.push(record);
+          }
+
+          // Generate output based on template
+          let output = "";
+
+          if (templateSelector.value !== "custom") {
+            // Use built-in templates - simple mustache-like substitution
+
+            // Helper: build string replacing {{fieldName}} with values
+            // Also support {{#records}}...{{/records}} and {{#fields}}...{{/fields}} and {{#comma}} for commas
+            function renderTemplate(templateStr, records) {
+              // We'll do a basic templating with limited support:
+              // {{#records}} ... {{/records}} -> repeat block for each record
+              // {{#fields}} ... {{/fields}} -> repeat block for each field
+              // {{fieldName}} -> field name in fields block, {{value}} -> value in records block
+              // {{#comma}} -> inserts comma except after last item
+
+              // Helper regex for blocks
+              const blockRegex = /\{\{#(\w+)\}\}([\s\S]*?)\{\{\/\1\}\}/g;
+
+              // Render function for one block
+              function renderBlock(blockName, content, context) {
+                if (blockName === "records") {
+                  const recordsArr = context.records || [];
+                  return recordsArr
+                    .map((record, idx) => {
+                      const recContext = {
+                        record,
+                        idx,
+                        records: recordsArr,
+                        fields: context.fields || [],
+                      };
+                      return renderContent(content, recContext);
+                    })
+                    .join("");
+                }
+                if (blockName === "fields") {
+                  const fieldsArr = context.fields || [];
+                  return fieldsArr
+                    .map((field, idx) => {
+                      const fldContext = {
+                        field,
+                        idx,
+                        fields: fieldsArr,
+                        record: context.record,
+                      };
+                      return renderContent(content, fldContext);
+                    })
+                    .join("");
+                }
+                return "";
+              }
+
+              // Render commas with {{#comma}}
+              function renderComma(idx, arrLength) {
+                return idx < arrLength - 1 ? "," : "";
+              }
+
+              // Render content recursively
+              function renderContent(text, context) {
+                // Replace blocks first
+                text = text.replace(
+                  blockRegex,
+                  (_, blockName, blockContent) => {
+                    return renderBlock(blockName, blockContent, context);
+                  }
+                );
+
+                // Replace placeholders
+                text = text.replace(/\{\{(\w+)\}\}/g, (_, key) => {
+                  if (key === "fieldName") return context.field?.name || "";
+                  if (key === "value")
+                    return context.record
+                      ? context.record[context.field?.name] || ""
+                      : "";
+                  if (key === "comma")
+                    return renderComma(
+                      context.idx,
+                      (context.fields || context.records).length
+                    );
+                  return "";
+                });
+
+                // Replace {{#comma}} inside content blocks to comma if needed
+                text = text.replace(/\{\{#comma\}\}/g, () =>
+                  renderComma(
+                    context.idx,
+                    (context.fields || context.records).length
+                  )
+                );
+
+                return text;
+              }
+
+              // Start rendering with records and fields context
+              return renderContent(templateStr, { records, fields });
+            }
+
+            output = renderTemplate(templates[templateSelector.value], records);
+          } else {
+            // Custom template: simple global replacement {{fieldName}} with record values
+
+            // We will generate output for all records, replacing {{field}} placeholders with values
+            output = "";
+            const tpl = templateInput.value;
+
+            for (let i = 0; i < records.length; i++) {
+              let recordText = tpl;
+              for (const f of fields) {
+                const re = new RegExp(
+                  `{{\\s*${escapeRegExp(f.name)}\\s*}}`,
+                  "g"
+                );
+                recordText = recordText.replace(re, records[i][f.name]);
+              }
+              output += recordText + (i < records.length - 1 ? "\n" : "");
+            }
+          }
+
+          outputPre.textContent = output.trim();
+          outputPre.focus();
+        });
+
+        // Copy button functionality
+        copyBtn.addEventListener("click", () => {
+          const text = outputPre.textContent;
+          if (!text) return;
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              copyBtn.textContent = "Copied!";
+              setTimeout(() => (copyBtn.textContent = "Copy"), 2000);
+            })
+            .catch(() => {
+              alert("Failed to copy to clipboard");
+            });
+        });
+
+        // Utility escape regexp string
+        function escapeRegExp(string) {
+          return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
+      })();
+    </script>
   </body>
 </html>
