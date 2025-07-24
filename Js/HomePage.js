@@ -166,36 +166,36 @@ setTimeout(() => {
 
   const styleSheet = document.styleSheets[0];
   if (styleSheet) {
-    const keyframes = `
-      @keyframes fadeDownIn {
+    const keyframes = [
+      `@keyframes fadeDownIn {
         0% { opacity: 0; transform: translate(-50%, -20px); }
         100% { opacity: 1; transform: translate(-50%, 0); }
-      }
-      @keyframes fadeOutAlert {
+      }`,
+      `@keyframes fadeOutAlert {
         0% { opacity: 1; }
         100% { opacity: 0; }
-      }
-    `;
+      }`,
+    ];
+
     try {
-      const rules = keyframes
-        .trim()
-        .split("}")
-        .filter((r) => r.trim())
-        .map((r) => r.trim() + "}");
-      rules.forEach((rule) => {
+      keyframes.forEach((rule) => {
+        const keyframeName = rule.match(/@keyframes\s+([^{\s]+)/)?.[1];
         let ruleExists = false;
+
+        // Check if the keyframe rule already exists
         for (let i = 0; i < styleSheet.cssRules.length; i++) {
           if (
             styleSheet.cssRules[i].type === CSSRule.KEYFRAMES_RULE &&
-            styleSheet.cssRules[i].name ===
-              (rule.match(/@keyframes\s+([^{\s]+)/) || [])[1]
+            styleSheet.cssRules[i].name === keyframeName
           ) {
             ruleExists = true;
             break;
           }
         }
-        if (!ruleExists)
+
+        if (!ruleExists && keyframeName) {
           styleSheet.insertRule(rule, styleSheet.cssRules.length);
+        }
       });
     } catch (e) {
       console.warn("Could not insert keyframes rule for welcome alert:", e);
