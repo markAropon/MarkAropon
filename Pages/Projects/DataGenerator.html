@@ -23,6 +23,61 @@
         align-items: flex-start;
         padding: 40px 20px;
       }
+
+      /* Home Button Styles */
+      .home-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 2px solid #2980b9;
+        border-radius: 50px;
+        color: #2980b9;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .home-button:hover {
+        background: #2980b9;
+        color: white;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .home-button i {
+        font-size: 16px;
+      }
+
+      .home-button span {
+        white-space: nowrap;
+      }
+
+      /* Responsive Home Button */
+      @media (max-width: 768px) {
+        .home-button {
+          bottom: 15px;
+          right: 15px;
+          padding: 10px 14px;
+          font-size: 13px;
+        }
+
+        .home-button span {
+          display: none;
+        }
+
+        .home-button i {
+          font-size: 18px;
+        }
+      }
       .container {
         max-width: 900px;
         width: 100%;
@@ -310,6 +365,12 @@
     </style>
   </head>
   <body>
+    <!-- Back to Home Button -->
+    <a class="home-button" href="../HomePage.html">
+      <i class="fas fa-home"></i>
+      <span>Back to Portfolio</span>
+    </a>
+
     <div class="container" role="main" aria-label="Custom Data Generator">
       <h1>Custom Data Generator</h1>
 

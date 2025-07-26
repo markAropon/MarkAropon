@@ -50,6 +50,61 @@ body {
   line-height: 1.6; /* Improved readability */
 }
 
+/* Home Button Styles */
+.home-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--primary-blue);
+  border-radius: 50px;
+  color: var(--primary-blue-dark);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.home-button:hover {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.home-button i {
+  font-size: 16px;
+}
+
+.home-button span {
+  white-space: nowrap;
+}
+
+/* Responsive Home Button */
+@media (max-width: 768px) {
+  .home-button {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .home-button span {
+    display: none;
+  }
+
+  .home-button i {
+    font-size: 18px;
+  }
+}
+
 .container {
   max-width: 1300px; /* Max width for very wide screens */
   width: 100%;
