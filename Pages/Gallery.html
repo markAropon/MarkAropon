@@ -3,37 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gallery Page</title>
+    <title>Gallery - My Digital Collection</title>
     <link rel="stylesheet" href="../Css/Gallery.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Gallery</h1>
-    <div class="gallery">
+    <a class="homeLink" href="../Pages/HomePage.html">
       <img
-        src="https://images.pexels.com/photos/1002703/pexels-photo-1002703.jpeg?auto=compress&cs=tinysrgb&w=600"
-        alt="Gallery Image 1"
+        src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/svgs/solid/house.svg"
+        alt="Home"
+        class="homeIcon"
       />
-      <img
-        src="https://images.pexels.com/photos/1048035/pexels-photo-1048035.jpeg?auto=compress&cs=tinysrgb&w=600"
-        alt="Gallery Image 2"
-      />
-      <img
-        src="https://via.placeholder.com/400x200?text=Image+3"
-        alt="Gallery Image 3"
-      />
-      <img
-        src="https://via.placeholder.com/400x200?text=Image+4"
-        alt="Gallery Image 4"
-      />
-      <img
-        src="https://via.placeholder.com/400x200?text=Image+5"
-        alt="Gallery Image 5"
-      />
-      <img
-        src="../Css/Assets/GalleryImages/favicon.ico"
-        alt="Mark James B. Aropon"
-        style="width: 64px; height: 64px"
-      />
+    </a>
+
+    <div class="header">
+      <h1>📸 My Gallery</h1>
+      <p>
+        Explore my collection of memories, projects, and creative works
+        organized in beautiful albums
+      </p>
     </div>
+    <div class="gallery"></div>
+    <div class="lightbox">
+      <span class="lightbox-close">&times;</span>
+      <img class="lightbox-image" src="" alt="" />
+    </div>
+
+    <script src="../Js/gallery.js"></script>
   </body>
 </html>

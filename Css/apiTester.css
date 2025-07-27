@@ -122,11 +122,6 @@ body {
   }
 }
 
-/* The direct children of .container (the columns) don't need special flex/height/overflow */
-.container > div {
-  /* No fixed height or overflow needed here; grid handles it */
-}
-
 .card {
   background: var(--card-bg);
   border-radius: 10px; /* Restore card's own radius */
@@ -137,10 +132,6 @@ body {
   display: flex; /* Good for internal layout of sections */
   flex-direction: column;
   height: auto; /* Card height determined by its content */
-}
-.container > div:last-child .card {
-  /* Optional: remove bottom margin from last card in a column if not needed */
-  /* margin-bottom: 0; */
 }
 
 h1 {
