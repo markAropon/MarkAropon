@@ -3,178 +3,178 @@
     {
       "folder": "Agreemo",
       "name": "Agreemo Project",
-      "description": "Design assets and mockups for the Agreemo application",
+      "description": "Design assets and mockups for the Agreemo Project",
       "icon": "📱",
       "images": [
         {
           "filename": "1.jpg",
-          "title": "Agreemo Screenshot 1",
-          "description": "Main interface"
+          "title": "Landing page design",
+          "description": "Landing page design"
         },
         {
           "filename": "2.jpg",
-          "title": "Agreemo Screenshot 2",
-          "description": "User dashboard"
+          "title": "Login interface",
+          "description": "Login interface"
         },
         {
           "filename": "3.jpg",
-          "title": "Agreemo Screenshot 3",
-          "description": "Feature showcase"
+          "title": "User registration form",
+          "description": "User registration form"
         },
         {
           "filename": "4.jpg",
-          "title": "Agreemo Screenshot 4",
-          "description": "Settings page"
+          "title": "Main Dashboard",
+          "description": "Main Dashboard"
         },
         {
           "filename": "5.jpg",
-          "title": "Agreemo Screenshot 5",
-          "description": "User profile"
+          "title": "Water level Indicator",
+          "description": "Water level Indicator"
         },
         {
           "filename": "6.jpg",
-          "title": "Agreemo Screenshot 6",
-          "description": "Navigation menu"
+          "title": "Solution Level Indicator",
+          "description": "Solution Level Indicator"
         },
         {
           "filename": "7.jpg",
-          "title": "Agreemo Screenshot 7",
-          "description": "Data visualization"
+          "title": "Water monitoring page",
+          "description": "Water monitoring page"
         },
         {
           "filename": "8.jpg",
-          "title": "Agreemo Screenshot 8",
-          "description": "Mobile view"
+          "title": "Greenhouse controls",
+          "description": "Greenhouse controls"
         },
         {
           "filename": "9.jpg",
-          "title": "Agreemo Screenshot 9",
-          "description": "Responsive design"
+          "title": "Plant Monitoring page/seedlings",
+          "description": "Plant Monitoring page/seedlings"
         },
         {
           "filename": "10.jpg",
-          "title": "Agreemo Screenshot 10",
-          "description": "Advanced features"
+          "title": "Plant Monitoring page/Data visualization",
+          "description": "Plant Monitoring page/Data visualization"
         },
         {
           "filename": "11.jpg",
-          "title": "Agreemo Screenshot 11",
-          "description": "User interaction"
+          "title": "Sensors and Components",
+          "description": "Sensors and Components"
         },
         {
           "filename": "12.jpg",
-          "title": "Agreemo Screenshot 12",
-          "description": "System overview"
+          "title": "Sensors and Components/register new component",
+          "description": "Sensors and Components/register new component"
         },
         {
           "filename": "13.jpg",
-          "title": "Agreemo Screenshot 13",
-          "description": "Analytics dashboard"
+          "title": "Maintenance logs",
+          "description": "Maintenance logs"
         },
         {
           "filename": "14.jpg",
-          "title": "Agreemo Screenshot 14",
-          "description": "Report generation"
+          "title": "DHT sensor Test",
+          "description": "DHT sensor Test"
         },
         {
           "filename": "15.jpg",
-          "title": "Agreemo Screenshot 15",
-          "description": "Admin panel"
+          "title": "TDS sensor Test",
+          "description": "TDS sensor Test"
         },
         {
           "filename": "16.jpg",
-          "title": "Agreemo Screenshot 16",
-          "description": "Configuration settings"
+          "title": "PH sensor test",
+          "description": "PH sensor test"
         },
         {
           "filename": "17.jpg",
-          "title": "Agreemo Screenshot 17",
-          "description": "User management"
+          "title": "Maintenance page",
+          "description": "Maintenance page"
         },
         {
           "filename": "17.5.jpg",
-          "title": "Agreemo Screenshot 17.5",
-          "description": "Additional features"
+          "title": "Harvest Records",
+          "description": "Harvest Records"
         },
         {
           "filename": "18.jpg",
-          "title": "Agreemo Screenshot 18",
-          "description": "System monitoring"
+          "title": "Harvest page",
+          "description": "Harvest page"
         },
         {
           "filename": "19.jpg",
-          "title": "Agreemo Screenshot 19",
-          "description": "Performance metrics"
+          "title": "Plant status Page",
+          "description": "Plant status Page"
         },
         {
           "filename": "20.jpg",
-          "title": "Agreemo Screenshot 20",
-          "description": "Error handling"
+          "title": "Growth Monitoring Page",
+          "description": "Growth Monitoring Page"
         },
         {
           "filename": "21.jpg",
-          "title": "Agreemo Screenshot 21",
-          "description": "Security features"
+          "title": "Inventory Management",
+          "description": "Inventory Management"
         },
         {
           "filename": "22.jpg",
-          "title": "Agreemo Screenshot 22",
-          "description": "Integration setup"
+          "title": "Inventory Management",
+          "description": "Inventory Management"
         },
         {
           "filename": "23.jpeg",
-          "title": "Agreemo Screenshot 23",
-          "description": "API documentation"
+          "title": "Sunnyville Farm",
+          "description": "Sunnyville Farm"
         },
         {
           "filename": "23.5.jpg",
-          "title": "Agreemo Screenshot 23.5",
-          "description": "Extended functionality"
+          "title": "Hardware making process",
+          "description": "Hardware making process"
         },
         {
           "filename": "24.jpeg",
-          "title": "Agreemo Screenshot 24",
-          "description": "Testing environment"
+          "title": "Hardware assessment",
+          "description": "Hardware assessment"
         },
         {
           "filename": "24.5.jpeg",
-          "title": "Agreemo Screenshot 24.5",
-          "description": "Development tools"
+          "title": "Hardware Turnover",
+          "description": "Hardware Turnover"
         },
         {
           "filename": "25.jpeg",
-          "title": "Agreemo Screenshot 25",
-          "description": "Deployment process"
+          "title": "Greenhouse in operation",
+          "description": "Greenhouse in operation"
         },
         {
           "filename": "26.jpeg",
-          "title": "Agreemo Screenshot 26",
-          "description": "Production environment"
+          "title": "Greenhouse maintenance",
+          "description": "Greenhouse maintenance"
         },
         {
           "filename": "26.5.jpeg",
-          "title": "Agreemo Screenshot 26.5",
-          "description": "Performance optimization"
+          "title": "Project defense",
+          "description": "Project defense"
         },
         {
           "filename": "27.jpeg",
-          "title": "Agreemo Screenshot 27",
-          "description": "Final implementation"
+          "title": "Project defense",
+          "description": "Project defense"
         },
         {
           "filename": "28.jpeg",
-          "title": "Agreemo Screenshot 28",
-          "description": "User feedback"
+          "title": "Project defense",
+          "description": "Project defense"
         },
         {
           "filename": "29.jpeg",
-          "title": "Agreemo Screenshot 29",
-          "description": "Project completion"
+          "title": "Project defense",
+          "description": "Project defense"
         },
         {
           "filename": "29.5.jpg",
-          "title": "Agreemo Screenshot 29.5",
-          "description": "Final touches"
+          "title": "Project defense",
+          "description": "Project defense"
         },
         {
           "filename": "30.jpeg",
