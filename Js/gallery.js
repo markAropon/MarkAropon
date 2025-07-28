@@ -2,7 +2,7 @@ const baseImagePath = "../Css/Assets/GalleryImages/";
 
 const albums = [
   {
-    folder: "Agreemo",
+    folder: "../Css/Assets/GalleryImages/Agreemo",
     name: "Agreemo Project",
     description: "Design assets and mockups for the Agreemo application",
     icon: "📱/🖥️",
