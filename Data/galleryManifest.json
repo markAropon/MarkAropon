@@ -1,0 +1,303 @@
+{
+  "albums": [
+    {
+      "folder": "Agreemo",
+      "name": "Agreemo Project",
+      "description": "Design assets and mockups for the Agreemo application",
+      "icon": "📱",
+      "images": [
+        {
+          "filename": "1.jpg",
+          "title": "Agreemo Screenshot 1",
+          "description": "Main interface"
+        },
+        {
+          "filename": "2.jpg",
+          "title": "Agreemo Screenshot 2",
+          "description": "User dashboard"
+        },
+        {
+          "filename": "3.jpg",
+          "title": "Agreemo Screenshot 3",
+          "description": "Feature showcase"
+        },
+        {
+          "filename": "4.jpg",
+          "title": "Agreemo Screenshot 4",
+          "description": "Settings page"
+        },
+        {
+          "filename": "5.jpg",
+          "title": "Agreemo Screenshot 5",
+          "description": "User profile"
+        },
+        {
+          "filename": "6.jpg",
+          "title": "Agreemo Screenshot 6",
+          "description": "Navigation menu"
+        },
+        {
+          "filename": "7.jpg",
+          "title": "Agreemo Screenshot 7",
+          "description": "Data visualization"
+        },
+        {
+          "filename": "8.jpg",
+          "title": "Agreemo Screenshot 8",
+          "description": "Mobile view"
+        },
+        {
+          "filename": "9.jpg",
+          "title": "Agreemo Screenshot 9",
+          "description": "Responsive design"
+        },
+        {
+          "filename": "10.jpg",
+          "title": "Agreemo Screenshot 10",
+          "description": "Advanced features"
+        },
+        {
+          "filename": "11.jpg",
+          "title": "Agreemo Screenshot 11",
+          "description": "User interaction"
+        },
+        {
+          "filename": "12.jpg",
+          "title": "Agreemo Screenshot 12",
+          "description": "System overview"
+        },
+        {
+          "filename": "13.jpg",
+          "title": "Agreemo Screenshot 13",
+          "description": "Analytics dashboard"
+        },
+        {
+          "filename": "14.jpg",
+          "title": "Agreemo Screenshot 14",
+          "description": "Report generation"
+        },
+        {
+          "filename": "15.jpg",
+          "title": "Agreemo Screenshot 15",
+          "description": "Admin panel"
+        },
+        {
+          "filename": "16.jpg",
+          "title": "Agreemo Screenshot 16",
+          "description": "Configuration settings"
+        },
+        {
+          "filename": "17.jpg",
+          "title": "Agreemo Screenshot 17",
+          "description": "User management"
+        },
+        {
+          "filename": "17.5.jpg",
+          "title": "Agreemo Screenshot 17.5",
+          "description": "Additional features"
+        },
+        {
+          "filename": "18.jpg",
+          "title": "Agreemo Screenshot 18",
+          "description": "System monitoring"
+        },
+        {
+          "filename": "19.jpg",
+          "title": "Agreemo Screenshot 19",
+          "description": "Performance metrics"
+        },
+        {
+          "filename": "20.jpg",
+          "title": "Agreemo Screenshot 20",
+          "description": "Error handling"
+        },
+        {
+          "filename": "21.jpg",
+          "title": "Agreemo Screenshot 21",
+          "description": "Security features"
+        },
+        {
+          "filename": "22.jpg",
+          "title": "Agreemo Screenshot 22",
+          "description": "Integration setup"
+        },
+        {
+          "filename": "23.jpeg",
+          "title": "Agreemo Screenshot 23",
+          "description": "API documentation"
+        },
+        {
+          "filename": "23.5.jpg",
+          "title": "Agreemo Screenshot 23.5",
+          "description": "Extended functionality"
+        },
+        {
+          "filename": "24.jpeg",
+          "title": "Agreemo Screenshot 24",
+          "description": "Testing environment"
+        },
+        {
+          "filename": "24.5.jpeg",
+          "title": "Agreemo Screenshot 24.5",
+          "description": "Development tools"
+        },
+        {
+          "filename": "25.jpeg",
+          "title": "Agreemo Screenshot 25",
+          "description": "Deployment process"
+        },
+        {
+          "filename": "26.jpeg",
+          "title": "Agreemo Screenshot 26",
+          "description": "Production environment"
+        },
+        {
+          "filename": "26.5.jpeg",
+          "title": "Agreemo Screenshot 26.5",
+          "description": "Performance optimization"
+        },
+        {
+          "filename": "27.jpeg",
+          "title": "Agreemo Screenshot 27",
+          "description": "Final implementation"
+        },
+        {
+          "filename": "28.jpeg",
+          "title": "Agreemo Screenshot 28",
+          "description": "User feedback"
+        },
+        {
+          "filename": "29.jpeg",
+          "title": "Agreemo Screenshot 29",
+          "description": "Project completion"
+        },
+        {
+          "filename": "29.5.jpg",
+          "title": "Agreemo Screenshot 29.5",
+          "description": "Final touches"
+        },
+        {
+          "filename": "30.jpeg",
+          "title": "Agreemo Screenshot 30",
+          "description": "Project showcase"
+        }
+      ]
+    },
+    {
+      "folder": "BusyHands",
+      "name": "Busy Hands Project",
+      "description": "Development assets for the Busy Hands web application",
+      "icon": "🖥️",
+      "images": [
+        {
+          "filename": "1.Busy Hands Login.jpeg",
+          "title": "Login Page",
+          "description": "User authentication interface"
+        },
+        {
+          "filename": "2.Busy Hands Dashboard.jpeg",
+          "title": "Main Dashboard",
+          "description": "Overview of system functionality"
+        },
+        {
+          "filename": "3. Busy Hands Payroll Page.jpeg",
+          "title": "Payroll Management",
+          "description": "Employee payroll processing"
+        },
+        {
+          "filename": "4. Busy Hands Add contribution Page.jpeg",
+          "title": "Add Contribution",
+          "description": "Employee contribution management"
+        },
+        {
+          "filename": "5. Busy Hands History Page.jpeg",
+          "title": "History Page",
+          "description": "Transaction and activity history"
+        },
+        {
+          "filename": "6. Busy Hands  Activity Log Page.jpeg",
+          "title": "Activity Log",
+          "description": "System activity monitoring"
+        },
+        {
+          "filename": "7. Busy Hands password reset.jpeg",
+          "title": "Password Reset",
+          "description": "User password recovery"
+        },
+        {
+          "filename": "8. Busy Hands Attendance.jpeg",
+          "title": "Attendance Tracking",
+          "description": "Employee attendance management"
+        }
+      ]
+    },
+    {
+      "folder": "PersonalGallery",
+      "name": "Personal Gallery",
+      "description": "Personal photos and memories",
+      "icon": "📸",
+      "images": [
+        {
+          "filename": "433962773_981651913319307_2649133264955353053_n.jpg",
+          "title": "Personal Photo 1",
+          "description": "Social media moment"
+        },
+        {
+          "filename": "a6a8e5ed-bf77-4b28-91b0-1150f8d5011e.jpg",
+          "title": "Personal Photo 2",
+          "description": "Memorable moment"
+        },
+        {
+          "filename": "ANIME _ MOB PYSHO 100 T3 EP 9.jfif",
+          "title": "Mob Psycho 100",
+          "description": "Anime screenshot from Season 3 Episode 9"
+        },
+        {
+          "filename": "beautiful.jpg",
+          "title": "Beautiful Scene",
+          "description": "Scenic photography"
+        },
+        {
+          "filename": "download.jpg",
+          "title": "Downloaded Image",
+          "description": "Collection item"
+        },
+        {
+          "filename": "Hanni.jpg",
+          "title": "Hanni",
+          "description": "Portrait photography"
+        },
+        {
+          "filename": "Juuzou Suzuya black haired @DaraenSuzu.jpg",
+          "title": "Juuzou Suzuya",
+          "description": "Tokyo Ghoul character art"
+        },
+        {
+          "filename": "mob.jfif",
+          "title": "Mob Psycho",
+          "description": "Anime character artwork"
+        },
+        {
+          "filename": "Naru Barakamon.jpg",
+          "title": "Naru from Barakamon",
+          "description": "Anime character from Barakamon"
+        },
+        {
+          "filename": "suzuya.jpg",
+          "title": "Suzuya",
+          "description": "Character artwork"
+        },
+        {
+          "filename": "xy.jpg",
+          "title": "Collection XY",
+          "description": "Personal collection item"
+        },
+        {
+          "filename": "xz.jpg",
+          "title": "Collection XZ",
+          "description": "Personal collection item"
+        }
+      ]
+    }
+  ]
+}

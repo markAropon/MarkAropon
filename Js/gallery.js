@@ -1,25 +1,7 @@
 const baseImagePath = "../Css/Assets/GalleryImages/";
+const manifestPath = "../Data/galleryManifest.json";
 
-const albums = [
-  {
-    folder: "Agreemo",
-    name: "Agreemo Project",
-    description: "Design assets and mockups for the Agreemo application",
-    icon: "📱/🖥️",
-  },
-  {
-    folder: "BusyHands",
-    name: "Busy Hands Project",
-    description: "Development assets for the Busy Hands web application",
-    icon: "🖥️",
-  },
-  {
-    folder: "PersonalGallery",
-    name: "Personal Gallery",
-    description: "Personal photos and memories",
-    icon: "📸",
-  },
-];
+let albums = [];
 
 const galleryDiv = document.querySelector(".gallery");
 
@@ -80,9 +62,31 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// Load gallery manifest
+async function loadGalleryManifest() {
+  try {
+    const response = await fetch(manifestPath);
+    if (!response.ok) throw new Error("Failed to load gallery manifest");
+    const manifest = await response.json();
+    albums = manifest.albums;
+    renderAlbums();
+  } catch (error) {
+    console.error("Error loading gallery manifest:", error);
+    // Fallback: show error message
+    galleryDiv.innerHTML = `
+      <div style="text-align: center; padding: 40px; color: #e53e3e; grid-column: 1 / -1;">
+        <div style="font-size: 3rem; margin-bottom: 15px;">⚠️</div>
+        <h3>Failed to load gallery</h3>
+        <p>Could not load the gallery manifest file.</p>
+      </div>
+    `;
+  }
+}
+
 function closeModal() {
   modal.classList.remove("active");
   modalImages.innerHTML = "";
+  currentImageList = [];
 }
 
 function closeLightbox() {
@@ -104,78 +108,68 @@ function openModal(albumData) {
     </div>
   `;
 
-  fetch(`${baseImagePath}${albumData.folder}/`)
-    .then((res) => {
-      if (!res.ok) throw new Error("Failed to load folder");
-      return res.text();
-    })
-    .then((html) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-      const links = Array.from(doc.querySelectorAll("a"));
+  // Use manifest data instead of fetching directory listing
+  setTimeout(() => {
+    modalImages.innerHTML = "";
+    currentImageList = [];
 
-      modalImages.innerHTML = "";
-      currentImageList = [];
-
-      // Collect all image files first
-      const imageFiles = [];
-
-      links.forEach((link) => {
-        const href = link.getAttribute("href") || "";
-        const fileName = href.split("/").pop();
-
-        if (/\.(jpg|jpeg|png|gif|jfif|webp|bmp)$/i.test(fileName)) {
-          imageFiles.push(fileName);
-        }
-      });
-
-      // Sort numerically
-      imageFiles.sort((a, b) => {
-        const numA = parseFloat(a.match(/\d+\.?\d*/)?.[0] || 0);
-        const numB = parseFloat(b.match(/\d+\.?\d*/)?.[0] || 0);
-        return numA - numB;
-      });
-
-      // Create images in sorted order
-      imageFiles.forEach((fileName) => {
-        const fullPath = `${baseImagePath}${albumData.folder}/${fileName}`;
-        currentImageList.push(fullPath);
-
-        const img = document.createElement("img");
-        img.src = fullPath;
-        img.alt = fileName;
-        img.className = "modal-image";
-
-        img.onclick = () => openLightbox(currentImageList.indexOf(fullPath));
-
-        img.style.opacity = "0";
-        img.style.transform = "scale(0.8)";
-        img.onload = () => {
-          img.style.transition = "all 0.3s ease";
-          img.style.opacity = "1";
-          img.style.transform = "scale(1)";
-        };
-
-        modalImages.appendChild(img);
-      });
-
-      if (currentImageList.length === 0) {
-        modalImages.innerHTML = `
-          <div style="text-align: center; padding: 40px; color: #666;">
-            <div style="font-size: 3rem; margin-bottom: 15px;">📂</div>
-            <p>No images found in this album.</p>
-          </div>
-        `;
-      }
-    })
-    .catch(() => {
+    if (!albumData.images || albumData.images.length === 0) {
       modalImages.innerHTML = `
-        <div style="text-align: center; padding: 40px; color: #e53e3e;">
-          <div style="font-size: 3rem;">⚠️</div>
-          <p>Failed to load images.</p>
+        <div style="text-align: center; padding: 40px; color: #666;">
+          <div style="font-size: 3rem; margin-bottom: 15px;">📂</div>
+          <p>No images found in this album.</p>
         </div>
       `;
+      return;
+    }
+
+    // Sort images numerically by extracting numbers from filename
+    const sortedImages = [...albumData.images].sort((a, b) => {
+      const numA = parseFloat(a.filename.match(/\d+\.?\d*/)?.[0] || 0);
+      const numB = parseFloat(b.filename.match(/\d+\.?\d*/)?.[0] || 0);
+      return numA - numB;
     });
+
+    // Create images in sorted order
+    sortedImages.forEach((imageData, index) => {
+      const fullPath = `${baseImagePath}${albumData.folder}/${imageData.filename}`;
+      currentImageList.push(fullPath);
+
+      const img = document.createElement("img");
+      img.src = fullPath;
+      img.alt = imageData.title || imageData.filename;
+      img.title =
+        imageData.description || imageData.title || imageData.filename;
+      img.className = "modal-image";
+
+      img.onclick = () => openLightbox(currentImageList.indexOf(fullPath));
+
+      img.style.opacity = "0";
+      img.style.transform = "scale(0.8)";
+
+      img.onload = () => {
+        img.style.transition = "all 0.3s ease";
+        img.style.opacity = "1";
+        img.style.transform = "scale(1)";
+      };
+
+      img.onerror = () => {
+        console.warn(`Failed to load image: ${fullPath}`);
+        img.style.display = "none";
+      };
+
+      modalImages.appendChild(img);
+    });
+
+    if (currentImageList.length === 0) {
+      modalImages.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: #666;">
+          <div style="font-size: 3rem; margin-bottom: 15px;">📂</div>
+          <p>No images could be loaded from this album.</p>
+        </div>
+      `;
+    }
+  }, 100);
 }
 
 function openLightbox(index) {
@@ -259,7 +253,10 @@ function renderAlbums() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", renderAlbums);
+// Initialize gallery
+document.addEventListener("DOMContentLoaded", () => {
+  loadGalleryManifest();
+});
 document.addEventListener("mousemove", (e) => {
   const cards = document.querySelectorAll(".album-card");
   cards.forEach((card) => {
