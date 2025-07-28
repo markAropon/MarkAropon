@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: radial-gradient(
+          ellipse at center,
+          #0b0f2b 0%,
+          #000000 100%
+        );
+        overflow: hidden;
+        font-family: "Segoe UI", sans-serif;
+        color: white;
+      }
+
+      .universe {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: twinkle 2s infinite alternate;
+      }
+
+      @keyframes twinkle {
+        0% {
+          opacity: 0.2;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1.5);
+        }
+      }
+
+      .planet {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, #6c5ce7, #341f97);
+        box-shadow: 0 0 25px #6c5ce788;
+        animation: floatPlanet 40s linear infinite;
+        opacity: 0.7;
+      }
+
+      @keyframes floatPlanet {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-10px) rotate(360deg);
+        }
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding-top: 22vh;
+        color: #ffffffdd;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        margin-bottom: 0.7rem;
+        background: linear-gradient(to right, #a29bfe, #00cec9);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px #00cec944;
+      }
+
+      p {
+        font-size: 1.1rem;
+        opacity: 0.75;
+        margin-bottom: 30px;
+      }
+
+      .loader {
+        margin: 0 auto;
+        border: 6px solid rgba(255, 255, 255, 0.1);
+        border-top: 6px solid #00cec9;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <script>
+      setTimeout(() => {
+        window.location.href = "Pages/homepage.html";
+      }, 2000);
+    </script>
+  </head>
+  <body>
+    <div class="universe" id="universe"></div>
+
+    <div class="content">
+      <h1>Please wait...</h1>
+      <p>Loading resources</p>
+      <div class="loader"></div>
+    </div>
+
+    <script>
+      const universe = document.getElementById("universe");
+
+      // Add stars
+      for (let i = 0; i < 150; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.top = Math.random() * 100 + "vh";
+        star.style.animationDuration = Math.random() * 2 + 1 + "s";
+        universe.appendChild(star);
+      }
+
+      // Add planets
+      const colors = [
+        ["#6c5ce7", "#341f97"],
+        ["#00cec9", "#0984e3"],
+        ["#fd79a8", "#e84393"],
+      ];
+
+      for (let i = 0; i < 4; i++) {
+        const planet = document.createElement("div");
+        planet.className = "planet";
+
+        const size = Math.random() * 60 + 40;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        planet.style.width = `${size}px`;
+        planet.style.height = `${size}px`;
+        planet.style.top = `${Math.random() * 80}vh`;
+        planet.style.left = `${Math.random() * 100}vw`;
+        planet.style.background = `radial-gradient(circle, ${color[0]}, ${color[1]})`;
+        planet.style.animationDuration = `${Math.random() * 30 + 20}s`;
+
+        universe.appendChild(planet);
+      }
+    </script>
+  </body>
+</html>

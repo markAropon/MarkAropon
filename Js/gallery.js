@@ -2,19 +2,19 @@ const baseImagePath = "../Css/Assets/GalleryImages/";
 
 const albums = [
   {
-    folder: "Agreemo/",
+    folder: "Agreemo",
     name: "Agreemo Project",
     description: "Design assets and mockups for the Agreemo application",
     icon: "📱/🖥️",
   },
   {
-    folder: "BusyHands/",
+    folder: "BusyHands",
     name: "Busy Hands Project",
     description: "Development assets for the Busy Hands web application",
     icon: "🖥️",
   },
   {
-    folder: "PersonalGallery/",
+    folder: "PersonalGallery",
     name: "Personal Gallery",
     description: "Personal photos and memories",
     icon: "📸",
