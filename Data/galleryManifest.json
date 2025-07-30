@@ -359,12 +359,12 @@
       "icon": "💰",
       "images": [
         {
-          "filename": "1.HomePage.png",
+          "filename": "1.Homepage.png",
           "title": "Home Page",
           "description": "Main page of the expense tracker app"
         },
         {
-          "filename": "2.HomePage1.png",
+          "filename": "2.Homepage1.png",
           "title": "Home Page 1",
           "description": "First page of the expense tracker app"
         },
