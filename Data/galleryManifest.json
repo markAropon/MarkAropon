@@ -298,6 +298,59 @@
           "description": "Personal collection item"
         }
       ]
+    },
+    {
+      "folder": "FavoriteComponents",
+      "name": "Les composants préférés",
+      "description": "Mes composants préférés pour le développement web",
+      "icon": "✨",
+      "images": [
+        {
+          "filename": "stars.mp4",
+          "title": "Star background animation",
+          "description": "Beautiful animated starry background component"
+        },
+        {
+          "filename": "cyber.mp4",
+          "title": "Cyberpunk background animation",
+          "description": "Futuristic animated cyberpunk background component"
+        },
+        {
+          "filename": "sleek.mp4",
+          "title": "Sleek background animation",
+          "description": "Modern animated sleek background component"
+        },
+        {
+          "filename": "carousel.mp4",
+          "title": "Automatic Skills Carousel",
+          "description": "Animated skills carousel from HomePage with smooth scrolling"
+        },
+        {
+          "filename": "scrollcard.mp4",
+          "title": "Scrollable Card Container",
+          "description": "Elegant scrollable card component from HomePage about section"
+        },
+        {
+          "filename": "header.png",
+          "title": "Profile Header Component",
+          "description": "Professional header design from web profile with image and titles"
+        },
+        {
+          "filename": "buttonGroup.mp4",
+          "title": "Component Button Groups",
+          "description": "Styled button groups and categories from Bootstrap Class page"
+        },
+        {
+          "filename": "gallerygrid.png",
+          "title": "Gallery Grid & Album Cards",
+          "description": "Beautiful responsive gallery grid with hover effects"
+        },
+        {
+          "filename": "alert.png",
+          "title": "Welcome Alert Component",
+          "description": "Animated welcome alert with smooth fade in/out effects"
+        }
+      ]
     }
   ]
 }

@@ -1,7 +1,9 @@
 const baseImagePath = "../Css/Assets/GalleryImages/";
 const manifestPath = "../Data/galleryManifest.json";
+const favComponentsPath = "../Data/Les composants préférés.json";
 
 let albums = [];
+let favComponentsData = {};
 
 const galleryDiv = document.querySelector(".gallery");
 
@@ -22,7 +24,13 @@ lightbox.className = "lightbox";
 lightbox.innerHTML = `
   <span class="lightbox-close">&times;</span>
   <span class="lightbox-prev">&#10094;</span>
-  <img class="lightbox-image" />
+  <div class="lightbox-media">
+    <img class="lightbox-image" />
+    <video class="lightbox-video" autoplay loop muted playsinline preload="auto">
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
   <span class="lightbox-next">&#10095;</span>
 `;
 document.body.appendChild(lightbox);
@@ -32,12 +40,19 @@ const modalImages = modal.querySelector(".modal-images");
 const closeButton = modal.querySelector(".close-button");
 
 const lightboxImage = lightbox.querySelector(".lightbox-image");
+const lightboxVideo = lightbox.querySelector(".lightbox-video");
 const lightboxClose = lightbox.querySelector(".lightbox-close");
 const lightboxPrev = lightbox.querySelector(".lightbox-prev");
 const lightboxNext = lightbox.querySelector(".lightbox-next");
 
 let currentImageIndex = 0;
 let currentImageList = [];
+
+// Helper function to detect video files
+function isVideoFile(filename) {
+  const videoExtensions = [".mp4", ".webm", ".ogg", ".mov", ".avi", ".mkv"];
+  return videoExtensions.some((ext) => filename.toLowerCase().endsWith(ext));
+}
 
 // Event listeners
 closeButton.onclick = closeModal;
@@ -69,6 +84,10 @@ async function loadGalleryManifest() {
     if (!response.ok) throw new Error("Failed to load gallery manifest");
     const manifest = await response.json();
     albums = manifest.albums;
+
+    // Load favorite components data
+    await loadFavoriteComponents();
+
     renderAlbums();
   } catch (error) {
     console.error("Error loading gallery manifest:", error);
@@ -83,6 +102,18 @@ async function loadGalleryManifest() {
   }
 }
 
+// Load favorite components data
+async function loadFavoriteComponents() {
+  try {
+    const response = await fetch(favComponentsPath);
+    if (!response.ok) throw new Error("Failed to load favorite components");
+    favComponentsData = await response.json();
+  } catch (error) {
+    console.error("Error loading favorite components:", error);
+    favComponentsData = {};
+  }
+}
+
 function closeModal() {
   modal.classList.remove("active");
   modalImages.innerHTML = "";
@@ -94,7 +125,68 @@ function closeLightbox() {
 
   setTimeout(() => {
     lightboxImage.src = "";
+    if (lightboxVideo.src) {
+      lightboxVideo.pause();
+      lightboxVideo.src = "";
+    }
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "none";
   }, 300);
+}
+
+// Copy component code to clipboard
+async function copyComponentCode(componentIndex) {
+  try {
+    const componentCode =
+      favComponentsData["Les composants préférés"][componentIndex];
+    if (!componentCode) {
+      throw new Error("Component code not found");
+    }
+
+    await navigator.clipboard.writeText(componentCode);
+
+    // Show success feedback
+    showCopyFeedback("Code copied to clipboard! ✅");
+  } catch (error) {
+    console.error("Failed to copy code:", error);
+    // Fallback for older browsers
+    try {
+      const textArea = document.createElement("textarea");
+      textArea.value =
+        favComponentsData["Les composants préférés"][componentIndex];
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      showCopyFeedback("Code copied to clipboard! ✅");
+    } catch (fallbackError) {
+      showCopyFeedback("Failed to copy code ❌");
+    }
+  }
+}
+
+// Show copy feedback
+function showCopyFeedback(message) {
+  const feedback = document.createElement("div");
+  feedback.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    z-index: 10003;
+    font-family: Inter, sans-serif;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  `;
+  feedback.textContent = message;
+  document.body.appendChild(feedback);
+
+  setTimeout(() => {
+    feedback.remove();
+  }, 3000);
 }
 
 function openModal(albumData) {
@@ -107,6 +199,9 @@ function openModal(albumData) {
       <p>Loading images...</p>
     </div>
   `;
+
+  // Check if this is the favorite components album
+  const isFavoriteComponents = albumData.folder === "FavoriteComponents";
 
   // Use manifest data instead of fetching directory listing
   setTimeout(() => {
@@ -131,34 +226,149 @@ function openModal(albumData) {
     });
 
     // Create images in sorted order
-    sortedImages.forEach((imageData, index) => {
+    sortedImages.forEach((imageData, sortedIndex) => {
       const fullPath = `${baseImagePath}${albumData.folder}/${imageData.filename}`;
       currentImageList.push(fullPath);
 
-      const img = document.createElement("img");
-      img.src = fullPath;
-      img.alt = imageData.title || imageData.filename;
-      img.title =
+      // Find the original index in the unsorted array for component mapping
+      const originalIndex = albumData.images.findIndex(
+        (img) => img.filename === imageData.filename
+      );
+
+      // Create image container
+      const imageContainer = document.createElement("div");
+      imageContainer.style.cssText = `
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      `;
+
+      // Check if this is a video file
+      const isVideo = isVideoFile(imageData.filename);
+
+      let mediaElement;
+
+      if (isVideo) {
+        // Create video element
+        mediaElement = document.createElement("video");
+        mediaElement.src = fullPath;
+        mediaElement.autoplay = true;
+        mediaElement.loop = true;
+        mediaElement.muted = true;
+        mediaElement.playsInline = true;
+        mediaElement.preload = "auto";
+        mediaElement.className = "modal-video";
+        mediaElement.style.cssText = `
+          width: 100%;
+          height: 160px;
+          object-fit: cover;
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+          opacity: 1;
+        `;
+      } else {
+        // Create image element
+        mediaElement = document.createElement("img");
+        mediaElement.src = fullPath;
+        mediaElement.className = "modal-image";
+      }
+
+      mediaElement.alt = imageData.title || imageData.filename;
+      mediaElement.title =
         imageData.description || imageData.title || imageData.filename;
-      img.className = "modal-image";
 
-      img.onclick = () => openLightbox(currentImageList.indexOf(fullPath));
+      mediaElement.onclick = () =>
+        openLightbox(currentImageList.indexOf(fullPath));
 
-      img.style.opacity = "0";
-      img.style.transform = "scale(0.8)";
+      if (!isVideo) {
+        mediaElement.style.opacity = "0";
+        mediaElement.style.transform = "scale(0.8)";
 
-      img.onload = () => {
-        img.style.transition = "all 0.3s ease";
-        img.style.opacity = "1";
-        img.style.transform = "scale(1)";
-      };
+        mediaElement.onload = () => {
+          mediaElement.style.transition = "all 0.3s ease";
+          mediaElement.style.opacity = "1";
+          mediaElement.style.transform = "scale(1)";
+        };
 
-      img.onerror = () => {
-        console.warn(`Failed to load image: ${fullPath}`);
-        img.style.display = "none";
-      };
+        mediaElement.onerror = () => {
+          console.warn(`Failed to load image: ${fullPath}`);
+          mediaElement.style.display = "none";
+        };
+      } else {
+        // For videos, show immediately without scaling animation
+        mediaElement.style.opacity = "1";
+        mediaElement.style.transform = "scale(1)";
 
-      modalImages.appendChild(img);
+        // For videos, add hover effects and autoplay handling
+        mediaElement.onmouseover = () => {
+          mediaElement.style.transform = "scale(1.05)";
+          mediaElement.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.2)";
+        };
+
+        mediaElement.onmouseout = () => {
+          mediaElement.style.transform = "scale(1)";
+          mediaElement.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
+        };
+
+        // Ensure video plays when loaded
+        mediaElement.addEventListener("loadeddata", () => {
+          mediaElement
+            .play()
+            .catch((e) => console.log("Video autoplay prevented:", e));
+        });
+
+        // Also try to play when the element is added to DOM
+        setTimeout(() => {
+          mediaElement
+            .play()
+            .catch((e) => console.log("Video autoplay prevented:", e));
+        }, 100);
+      }
+
+      imageContainer.appendChild(mediaElement);
+
+      // Add copy button for favorite components
+      if (
+        isFavoriteComponents &&
+        favComponentsData["Les composants préférés"]
+      ) {
+        const copyButton = document.createElement("button");
+        copyButton.innerHTML = "📋 Copy Code";
+        copyButton.style.cssText = `
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          border: none;
+          padding: 8px 12px;
+          border-radius: 6px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        `;
+
+        copyButton.onmouseover = () => {
+          copyButton.style.transform = "translateY(-2px)";
+          copyButton.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.2)";
+        };
+
+        copyButton.onmouseout = () => {
+          copyButton.style.transform = "translateY(0)";
+          copyButton.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.1)";
+        };
+
+        copyButton.onclick = (e) => {
+          e.stopPropagation();
+          copyComponentCode(originalIndex);
+        };
+
+        imageContainer.appendChild(copyButton);
+      }
+
+      modalImages.appendChild(imageContainer);
     });
 
     if (currentImageList.length === 0) {
@@ -175,60 +385,154 @@ function openModal(albumData) {
 function openLightbox(index) {
   if (currentImageList.length === 0) return;
   currentImageIndex = index;
-  lightboxImage.src = currentImageList[currentImageIndex];
-  lightboxImage.style.opacity = "0";
-  lightboxImage.style.transform = "scale(0.9)";
+
+  const currentPath = currentImageList[currentImageIndex];
+  const isVideo = isVideoFile(currentPath);
+
+  // Hide both elements initially
+  lightboxImage.style.display = "none";
+  lightboxVideo.style.display = "none";
+
+  if (isVideo) {
+    // Show video element
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = currentPath;
+    lightboxVideo.style.opacity = "0";
+    lightboxVideo.style.transform = "scale(0.9)";
+
+    // Ensure video plays when ready
+    lightboxVideo.addEventListener("loadeddata", () => {
+      lightboxVideo
+        .play()
+        .catch((e) => console.log("Video autoplay prevented:", e));
+    });
+  } else {
+    // Show image element
+    lightboxImage.style.display = "block";
+    lightboxImage.src = currentPath;
+    lightboxImage.style.opacity = "0";
+    lightboxImage.style.transform = "scale(0.9)";
+  }
 
   lightbox.classList.add("active");
 
   // Animate in
   setTimeout(() => {
-    lightboxImage.style.opacity = "1";
-    lightboxImage.style.transform = "scale(1)";
+    if (isVideo) {
+      lightboxVideo.style.opacity = "1";
+      lightboxVideo.style.transform = "scale(1)";
+    } else {
+      lightboxImage.style.opacity = "1";
+      lightboxImage.style.transform = "scale(1)";
+    }
   }, 50);
 }
 
 function showPrevImage() {
   if (currentImageList.length === 0) return;
 
+  const currentPath = currentImageList[currentImageIndex];
+  const isCurrentVideo = isVideoFile(currentPath);
+
   // Add slide-out animation
-  lightboxImage.style.opacity = "0";
-  lightboxImage.style.transform = "scale(0.95) translateX(-20px)";
+  if (isCurrentVideo) {
+    lightboxVideo.style.opacity = "0";
+    lightboxVideo.style.transform = "scale(0.95) translateX(-20px)";
+  } else {
+    lightboxImage.style.opacity = "0";
+    lightboxImage.style.transform = "scale(0.95) translateX(-20px)";
+  }
 
   setTimeout(() => {
     currentImageIndex =
       (currentImageIndex - 1 + currentImageList.length) %
       currentImageList.length;
-    lightboxImage.src = currentImageList[currentImageIndex];
+    const newPath = currentImageList[currentImageIndex];
+    const isNewVideo = isVideoFile(newPath);
 
-    // Slide-in animation from right
-    lightboxImage.style.transform = "scale(0.95) translateX(20px)";
+    // Hide current media and show new media
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "none";
 
-    setTimeout(() => {
-      lightboxImage.style.opacity = "1";
-      lightboxImage.style.transform = "scale(1) translateX(0)";
-    }, 50);
+    if (isNewVideo) {
+      lightboxVideo.style.display = "block";
+      lightboxVideo.src = newPath;
+      lightboxVideo.style.transform = "scale(0.95) translateX(20px)";
+
+      // Ensure video plays when ready
+      lightboxVideo.addEventListener("loadeddata", () => {
+        lightboxVideo
+          .play()
+          .catch((e) => console.log("Video autoplay prevented:", e));
+      });
+
+      setTimeout(() => {
+        lightboxVideo.style.opacity = "1";
+        lightboxVideo.style.transform = "scale(1) translateX(0)";
+      }, 50);
+    } else {
+      lightboxImage.style.display = "block";
+      lightboxImage.src = newPath;
+      lightboxImage.style.transform = "scale(0.95) translateX(20px)";
+
+      setTimeout(() => {
+        lightboxImage.style.opacity = "1";
+        lightboxImage.style.transform = "scale(1) translateX(0)";
+      }, 50);
+    }
   }, 150);
 }
 
 function showNextImage() {
   if (currentImageList.length === 0) return;
 
+  const currentPath = currentImageList[currentImageIndex];
+  const isCurrentVideo = isVideoFile(currentPath);
+
   // Add slide-out animation
-  lightboxImage.style.opacity = "0";
-  lightboxImage.style.transform = "scale(0.95) translateX(20px)";
+  if (isCurrentVideo) {
+    lightboxVideo.style.opacity = "0";
+    lightboxVideo.style.transform = "scale(0.95) translateX(20px)";
+  } else {
+    lightboxImage.style.opacity = "0";
+    lightboxImage.style.transform = "scale(0.95) translateX(20px)";
+  }
 
   setTimeout(() => {
     currentImageIndex = (currentImageIndex + 1) % currentImageList.length;
-    lightboxImage.src = currentImageList[currentImageIndex];
+    const newPath = currentImageList[currentImageIndex];
+    const isNewVideo = isVideoFile(newPath);
 
-    // Slide-in animation from left
-    lightboxImage.style.transform = "scale(0.95) translateX(-20px)";
+    // Hide current media and show new media
+    lightboxImage.style.display = "none";
+    lightboxVideo.style.display = "none";
 
-    setTimeout(() => {
-      lightboxImage.style.opacity = "1";
-      lightboxImage.style.transform = "scale(1) translateX(0)";
-    }, 50);
+    if (isNewVideo) {
+      lightboxVideo.style.display = "block";
+      lightboxVideo.src = newPath;
+      lightboxVideo.style.transform = "scale(0.95) translateX(-20px)";
+
+      // Ensure video plays when ready
+      lightboxVideo.addEventListener("loadeddata", () => {
+        lightboxVideo
+          .play()
+          .catch((e) => console.log("Video autoplay prevented:", e));
+      });
+
+      setTimeout(() => {
+        lightboxVideo.style.opacity = "1";
+        lightboxVideo.style.transform = "scale(1) translateX(0)";
+      }, 50);
+    } else {
+      lightboxImage.style.display = "block";
+      lightboxImage.src = newPath;
+      lightboxImage.style.transform = "scale(0.95) translateX(-20px)";
+
+      setTimeout(() => {
+        lightboxImage.style.opacity = "1";
+        lightboxImage.style.transform = "scale(1) translateX(0)";
+      }, 50);
+    }
   }, 150);
 }
 
