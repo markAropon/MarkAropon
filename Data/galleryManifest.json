@@ -351,6 +351,64 @@
           "description": "Animated welcome alert with smooth fade in/out effects"
         }
       ]
+    },
+    {
+      "folder": "Expense Tracker App",
+      "name": "Expense Tracker App",
+      "description": "Application for tracking My personal expenses",
+      "icon": "💰",
+      "images": [
+        {
+          "filename": "1.HomePage.png",
+          "title": "Home Page",
+          "description": "Main page of the expense tracker app"
+        },
+        {
+          "filename": "2.HomePage1.png",
+          "title": "Home Page 1",
+          "description": "First page of the expense tracker app"
+        },
+        {
+          "filename": "3.analytics.png",
+          "title": "Analytics Page",
+          "description": "Page displaying analytics and statistics"
+        },
+        {
+          "filename": "4.analytics1.png",
+          "title": "Analytics Page",
+          "description": "Page displaying analytics and statistics"
+        },
+        {
+          "filename": "5.add new.png",
+          "title": "Add New Expense",
+          "description": "Page for adding a new expense"
+        },
+        {
+          "filename": "6.categories.png",
+          "title": "Categories Page",
+          "description": "Page displaying expense categories"
+        },
+        {
+          "filename": "7.transactions.png",
+          "title": "Transactions Page",
+          "description": "Page displaying all transactions"
+        },
+        {
+          "filename": "8.profile.png",
+          "title": "Profile Page",
+          "description": "User profile page with personal information and settings"
+        },
+        {
+          "filename": "9.profile1.png",
+          "title": "Profile Page",
+          "description": "User profile page with personal information and settings"
+        },
+        {
+          "filename": "10.coding.png",
+          "title": "Coding Page",
+          "description": "coding the expense tracker app"
+        }
+      ]
     }
   ]
 }
