@@ -29,16 +29,20 @@ body {
 
 /* Modern header */
 .header {
-  background: #2c3e50;
-  color: white;
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(21, 37, 53, 0.8) 0%,
+    rgb(14, 45, 76) 100%
+  );
+  color: whitesmoke;
   padding: 60px 50px;
   text-align: center;
   width: 100%;
 }
 
 .header h1 {
-  font-size: 3.5rem;
-  margin-bottom: 30px;
+  font-size: 4rem;
+  margin-bottom: 10px;
   font-weight: 700;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   letter-spacing: 1px;
@@ -47,36 +51,27 @@ body {
 .contact-info {
   display: flex;
   justify-content: center;
-  gap: 60px;
+  gap: 10px;
   flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 40px auto;
+  margin: 10px auto 0 auto;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 15px;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2c3e50;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 20px 35px;
-  border-radius: 12px;
-  border: 2px solid #e9ecef;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.contact-item:hover {
-  background: #ffffff;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  border-color: #3498db;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
 }
 
 .contact-item i {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #3498db;
 }
 
@@ -432,14 +427,17 @@ li::before {
   }
 
   .contact-info {
-    flex-direction: column;
     gap: 20px;
-    align-items: center;
+    flex-wrap: wrap;
   }
 
   .contact-item {
-    padding: 12px 20px;
-    font-size: 1rem;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .contact-item i {
+    font-size: 0.9rem;
   }
 
   h2 {
