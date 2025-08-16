@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DB Designer - Visual Database Schema Designer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../Css/DB_Designer.css" />
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <i class="fas fa-database"></i>
+        <span>DB Designer</span>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-primary" onclick="saveProject()">
+          <i class="fas fa-save"></i> Save
+        </button>
+        <button class="btn-secondary" onclick="loadProject()">
+          <i class="fas fa-folder-open"></i> Load
+        </button>
+        <div class="export-dropdown">
+          <button class="btn-success" onclick="toggleExportMenu()">
+            <i class="fas fa-download"></i> Export
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="export-menu" id="exportMenu">
+            <button onclick="exportSQL()">
+              <i class="fas fa-code"></i> SQL Script
+            </button>
+            <button onclick="exportJSON()">
+              <i class="fas fa-file-code"></i> JSON Schema
+            </button>
+            <button onclick="exportXML()">
+              <i class="fas fa-file-alt"></i> XML Schema
+            </button>
+            <button onclick="exportPDF()">
+              <i class="fas fa-file-pdf"></i> PDF Diagram
+            </button>
+            <button onclick="exportPNG()">
+              <i class="fas fa-image"></i> PNG Image
+            </button>
+          </div>
+        </div>
+        <button class="btn-ai" onclick="openAIAssistant()">
+          <i class="fas fa-robot"></i> AI Assistant
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Left Sidebar - Tools -->
+      <aside class="sidebar">
+        <div class="tool-section">
+          <h3><i class="fas fa-tools"></i> Tools</h3>
+          <button class="tool-btn" onclick="addTable()">
+            <i class="fas fa-table"></i> Add Table
+          </button>
+          <button class="tool-btn" onclick="addView()">
+            <i class="fas fa-eye"></i> Add View
+          </button>
+          <button class="tool-btn" onclick="addIndex()">
+            <i class="fas fa-search"></i> Add Index
+          </button>
+          <button class="tool-btn" onclick="clearCanvas()">
+            <i class="fas fa-trash"></i> Clear All
+          </button>
+        </div>
+
+        <div class="tool-section">
+          <h3><i class="fas fa-link"></i> Relationships</h3>
+          <button class="tool-btn" onclick="toggleConnectionMode()">
+            <i class="fas fa-bezier-curve"></i> Connect Tables
+          </button>
+          <button class="tool-btn" onclick="autoLayout()">
+            <i class="fas fa-magic"></i> Auto Layout
+          </button>
+        </div>
+
+        <div class="tool-section">
+          <h3><i class="fas fa-cog"></i> Data Types</h3>
+          <div class="data-types">
+            <span class="data-type" draggable="true" data-type="INT">INT</span>
+            <span class="data-type" draggable="true" data-type="VARCHAR"
+              >VARCHAR</span
+            >
+            <span class="data-type" draggable="true" data-type="TEXT"
+              >TEXT</span
+            >
+            <span class="data-type" draggable="true" data-type="DATE"
+              >DATE</span
+            >
+            <span class="data-type" draggable="true" data-type="BOOLEAN"
+              >BOOLEAN</span
+            >
+            <span class="data-type" draggable="true" data-type="DECIMAL"
+              >DECIMAL</span
+            >
+            <span class="data-type" draggable="true" data-type="TIMESTAMP"
+              >TIMESTAMP</span
+            >
+            <span class="data-type" draggable="true" data-type="JSON"
+              >JSON</span
+            >
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <h3><i class="fas fa-database"></i> Templates</h3>
+          <button class="template-btn" onclick="loadTemplate('blog')">
+            Blog Schema
+          </button>
+          <button class="template-btn" onclick="loadTemplate('ecommerce')">
+            E-commerce
+          </button>
+          <button class="template-btn" onclick="loadTemplate('crm')">
+            CRM System
+          </button>
+          <button class="template-btn" onclick="loadTemplate('hr')">
+            HR Management
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Canvas -->
+      <main class="canvas-container">
+        <div class="canvas-toolbar">
+          <div class="zoom-controls">
+            <button onclick="zoomIn()">
+              <i class="fas fa-search-plus"></i>
+            </button>
+            <span id="zoomLevel">100%</span>
+            <button onclick="zoomOut()">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <button onclick="resetZoom()"><i class="fas fa-expand"></i></button>
+          </div>
+          <div class="canvas-info">
+            <span id="canvasInfo">Tables: 0 | Relationships: 0</span>
+          </div>
+        </div>
+        <svg id="canvas" class="canvas" width="100%" height="100%">
+          <defs>
+            <marker
+              id="arrowhead"
+              markerWidth="10"
+              markerHeight="7"
+              refX="9"
+              refY="3.5"
+              orient="auto"
+            >
+              <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+            </marker>
+            <pattern
+              id="grid"
+              width="20"
+              height="20"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 20 0 L 0 0 0 20"
+                fill="none"
+                stroke="#e0e0e0"
+                stroke-width="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+        <div id="tables-container" class="tables-container"></div>
+      </main>
+
+      <!-- Right Panel - Properties -->
+      <aside class="properties-panel">
+        <div class="panel-header">
+          <h3><i class="fas fa-cogs"></i> Properties</h3>
+          <button onclick="togglePropertiesPanel()" class="toggle-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="panel-content" id="propertiesContent">
+          <div class="property-section">
+            <h4>Table Properties</h4>
+            <div class="form-group">
+              <label>Table Name:</label>
+              <input
+                type="text"
+                id="tableName"
+                placeholder="Enter table name"
+              />
+            </div>
+            <div class="form-group">
+              <label>Comment:</label>
+              <textarea
+                id="tableComment"
+                placeholder="Table description"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>Engine:</label>
+              <select id="tableEngine">
+                <option value="InnoDB">InnoDB</option>
+                <option value="MyISAM">MyISAM</option>
+                <option value="Memory">Memory</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="property-section">
+            <h4>Columns</h4>
+            <div class="columns-list" id="columnsList">
+              <!-- Columns will be dynamically added here -->
+            </div>
+            <button class="btn-add-column" onclick="addColumn()">
+              <i class="fas fa-plus"></i> Add Column
+            </button>
+          </div>
+
+          <div class="property-section">
+            <h4>Indexes</h4>
+            <div class="indexes-list" id="indexesList">
+              <!-- Indexes will be dynamically added here -->
+            </div>
+            <button class="btn-add-index" onclick="addTableIndex()">
+              <i class="fas fa-plus"></i> Add Index
+            </button>
+          </div>
+
+          <div class="property-section">
+            <h4>Query Builder</h4>
+            <div class="query-builder">
+              <button onclick="generateSelect()">SELECT</button>
+              <button onclick="generateInsert()">INSERT</button>
+              <button onclick="generateUpdate()">UPDATE</button>
+              <button onclick="generateDelete()">DELETE</button>
+              <button onclick="generateJoin()">JOIN</button>
+              <button onclick="generateUnion()">UNION</button>
+            </div>
+            <textarea
+              id="generatedQuery"
+              placeholder="Generated SQL will appear here..."
+              readonly
+            ></textarea>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- AI Assistant Modal -->
+    <div id="aiModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fas fa-robot"></i> AI Database Assistant</h3>
+          <button onclick="closeAIAssistant()" class="close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="ai-chat">
+            <div id="chatHistory" class="chat-history">
+              <div class="ai-message">
+                <i class="fas fa-robot"></i>
+                <div class="message-content">
+                  <p>Hello! I'm your AI database assistant. I can help you:</p>
+                  <ul>
+                    <li>Design database schemas</li>
+                    <li>Suggest optimal table structures</li>
+                    <li>Generate SQL queries</li>
+                    <li>Optimize relationships</li>
+                    <li>Create indexes and constraints</li>
+                  </ul>
+                  <p>What would you like to build today?</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat-input">
+              <input
+                type="text"
+                id="aiInput"
+                placeholder="Ask me about database design..."
+                onkeypress="handleAIInput(event)"
+              />
+              <button onclick="sendAIMessage()">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+          <div class="ai-suggestions">
+            <h4>Quick Actions:</h4>
+            <button onclick="aiSuggestSchema()">Suggest Schema</button>
+            <button onclick="aiOptimizeStructure()">Optimize Structure</button>
+            <button onclick="aiGenerateData()">Generate Sample Data</button>
+            <button onclick="aiCreateIndexes()">Suggest Indexes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Editor Modal -->
+    <div id="tableModal" class="modal">
+      <div class="modal-content large">
+        <div class="modal-header">
+          <h3><i class="fas fa-table"></i> Table Editor</h3>
+          <button onclick="closeTableModal()" class="close-btn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-editor">
+            <div class="editor-toolbar">
+              <button onclick="addColumnToEditor()">
+                <i class="fas fa-plus"></i> Add Column
+              </button>
+              <button onclick="deleteSelectedColumns()">
+                <i class="fas fa-trash"></i> Delete Selected
+              </button>
+              <button onclick="moveColumnUp()">
+                <i class="fas fa-arrow-up"></i> Move Up
+              </button>
+              <button onclick="moveColumnDown()">
+                <i class="fas fa-arrow-down"></i> Move Down
+              </button>
+            </div>
+            <div class="columns-grid" id="columnsGrid">
+              <div class="grid-header">
+                <span></span>
+                <span>Name</span>
+                <span>Type</span>
+                <span>Length</span>
+                <span>Null</span>
+                <span>Default</span>
+                <span>Key</span>
+                <span>Auto Inc</span>
+                <span>Comment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connection Line Template -->
+    <template id="connectionTemplate">
+      <line
+        class="connection-line"
+        stroke="#666"
+        stroke-width="2"
+        marker-end="url(#arrowhead)"
+      ></line>
+    </template>
+
+    <!-- Back to Home Button -->
+    <a class="home-button" href="../HomePage.html">
+      <i class="fas fa-home"></i>
+      <span>Back to Portfolio</span>
+    </a>
+
+    <script src="../../Js/DB_Designer.js"></script>
+  </body>
+</html>
