@@ -169,6 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return type === "custom" ? customValue || "" : "Loading data...";
     }
 
+    // Make type case-insensitive
+    const lowerType = type.toLowerCase();
+
     // Use data from JSON file
     const firstNames = generatorData.firstNames;
     const lastNames = generatorData.lastNames;
@@ -177,65 +180,171 @@ document.addEventListener("DOMContentLoaded", () => {
     const streetNames = generatorData.streetNames;
     const streetTypes = generatorData.streetTypes;
 
-    switch (type) {
-      case "name":
-        return `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${
-          lastNames[Math.floor(Math.random() * lastNames.length)]
-        }`;
-
-      case "email":
-        const firstName =
-          firstNames[
-            Math.floor(Math.random() * firstNames.length)
-          ].toLowerCase();
-        const lastName =
-          lastNames[Math.floor(Math.random() * lastNames.length)].toLowerCase();
+    // Helper functions for each data type
+    const generators = {
+      // Basic generators
+      firstname: () =>
+        firstNames[Math.floor(Math.random() * firstNames.length)],
+      lastname: () => lastNames[Math.floor(Math.random() * lastNames.length)],
+      name: () => `${generators.firstname()} ${generators.lastname()}`,
+      email: () => {
+        const firstName = generators.firstname().toLowerCase();
+        const lastName = generators.lastname().toLowerCase();
         const domain = domains[Math.floor(Math.random() * domains.length)];
         const separator = Math.random() > 0.5 ? "." : "";
         return `${firstName}${separator}${lastName}${Math.floor(
           Math.random() * 100
         )}@${domain}`;
-
-      case "phone":
+      },
+      phone: () => {
         const areaCode =
           areaCodes[Math.floor(Math.random() * areaCodes.length)];
         const prefix = Math.floor(Math.random() * 900) + 100;
         const lineNum = Math.floor(Math.random() * 9000) + 1000;
         return `(${areaCode}) ${prefix}-${lineNum}`;
-
-      case "address":
+      },
+      address: () => {
         const streetNum = Math.floor(Math.random() * 9000) + 100;
         const streetName =
           streetNames[Math.floor(Math.random() * streetNames.length)];
         const streetType =
           streetTypes[Math.floor(Math.random() * streetTypes.length)];
         return `${streetNum} ${streetName} ${streetType}`;
-
-      case "date":
+      },
+      date: () => {
         const year = Math.floor(Math.random() * 10) + 2014;
         const month = Math.floor(Math.random() * 12) + 1;
         const day = Math.floor(Math.random() * 28) + 1;
         return `${year}-${month.toString().padStart(2, "0")}-${day
           .toString()
           .padStart(2, "0")}`;
-
-      case "time":
+      },
+      time: () => {
         const hour = Math.floor(Math.random() * 24);
         const minute = Math.floor(Math.random() * 60);
         const second = Math.floor(Math.random() * 60);
         return `${hour.toString().padStart(2, "0")}:${minute
           .toString()
           .padStart(2, "0")}:${second.toString().padStart(2, "0")}`;
+      },
+      number: () => (Math.floor(Math.random() * 9000) + 1000).toString(),
+      custom: () => customValue || "",
 
-      case "number":
-        return (Math.floor(Math.random() * 9000) + 1000).toString();
+      // Combined generators
+      datetime: () => `${generators.date()} ${generators.time()}`,
+      fullname: () => generators.name(),
+      username: () => {
+        const first = generators.firstname().toLowerCase();
+        const last = generators.lastname().toLowerCase();
+        return `${first}${last.substring(0, 3)}${Math.floor(
+          Math.random() * 99
+        )}`;
+      },
+      streetname: () =>
+        streetNames[Math.floor(Math.random() * streetNames.length)],
+      streettype: () =>
+        streetTypes[Math.floor(Math.random() * streetTypes.length)],
+      zipcode: () => Math.floor(Math.random() * 89999 + 10000).toString(),
+      state: () => {
+        const states = [
+          "AL",
+          "AK",
+          "AZ",
+          "AR",
+          "CA",
+          "CO",
+          "CT",
+          "DE",
+          "FL",
+          "GA",
+          "HI",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "KS",
+          "KY",
+          "LA",
+          "ME",
+          "MD",
+          "MA",
+          "MI",
+          "MN",
+          "MS",
+          "MO",
+          "MT",
+          "NE",
+          "NV",
+          "NH",
+          "NJ",
+          "NM",
+          "NY",
+          "NC",
+          "ND",
+          "OH",
+          "OK",
+          "OR",
+          "PA",
+          "RI",
+          "SC",
+          "SD",
+          "TN",
+          "TX",
+          "UT",
+          "VT",
+          "VA",
+          "WA",
+          "WV",
+          "WI",
+          "WY",
+        ];
+        return states[Math.floor(Math.random() * states.length)];
+      },
+      city: () => {
+        const cities = [
+          "New York",
+          "Los Angeles",
+          "Chicago",
+          "Houston",
+          "Phoenix",
+          "Philadelphia",
+          "San Antonio",
+          "San Diego",
+          "Dallas",
+          "San Jose",
+          "Austin",
+          "Jacksonville",
+          "Fort Worth",
+          "Columbus",
+          "San Francisco",
+          "Charlotte",
+          "Indianapolis",
+          "Seattle",
+          "Denver",
+          "Boston",
+        ];
+        return cities[Math.floor(Math.random() * cities.length)];
+      },
+    };
 
-      case "custom":
-        return customValue || "";
-
-      default:
-        return "Unknown data type";
+    // Check if we have a direct match (case-insensitive)
+    for (const [key, generator] of Object.entries(generators)) {
+      if (lowerType === key.toLowerCase()) {
+        return generator();
+      }
     }
+
+    // If type contains multiple known types (like 'nameemail'), try to parse and generate
+    // For example: if type is 'firstname_lastname', generate first name and last name
+    const possibleTypes = Object.keys(generators);
+    for (const genType of possibleTypes) {
+      if (lowerType.includes(genType.toLowerCase()) && genType !== "custom") {
+        return generators[genType]();
+      }
+    }
+
+    // Default fallback
+    return customValue || "Unknown data type";
   }
 
   function renderFields() {
@@ -261,15 +370,48 @@ document.addEventListener("DOMContentLoaded", () => {
       // Type selector
       const typeSelect = document.createElement("select");
       typeSelect.setAttribute("aria-label", `Field type ${index + 1}`);
+
+      // Add standard data types
       for (const type of dataTypes) {
         const option = document.createElement("option");
         option.value = type;
         option.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-        if (field.type === type) option.selected = true;
+        if (field.type.toLowerCase() === type.toLowerCase())
+          option.selected = true;
+        typeSelect.appendChild(option);
+      }
+
+      // Add additional custom combined types
+      const combinedTypes = [
+        { value: "dateTime", label: "Date & Time" },
+        { value: "firstName", label: "First Name" },
+        { value: "lastName", label: "Last Name" },
+        { value: "fullName", label: "Full Name" },
+        { value: "userName", label: "Username" },
+        { value: "city", label: "City" },
+        { value: "state", label: "State" },
+        { value: "zipCode", label: "Zip Code" },
+      ];
+
+      // Add a separator
+      const separator = document.createElement("option");
+      separator.disabled = true;
+      separator.textContent = "───────────────";
+      typeSelect.appendChild(separator);
+
+      // Add combined types
+      for (const type of combinedTypes) {
+        const option = document.createElement("option");
+        option.value = type.value;
+        option.textContent = type.label;
+        if (field.type.toLowerCase() === type.value.toLowerCase())
+          option.selected = true;
         typeSelect.appendChild(option);
       }
       typeSelect.addEventListener("change", (e) => {
         fields[index].type = e.target.value;
+        // Only show custom input if explicitly set to 'custom' type
+        const isCustomType = e.target.value.toLowerCase() === "custom";
         // Re-render to show/hide custom input
         renderFields();
       });
