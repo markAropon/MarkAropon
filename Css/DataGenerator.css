@@ -1,0 +1,356 @@
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #e9eff5;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+/* Home Button Styles */
+.home-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 2px solid #2980b9;
+  border-radius: 50px;
+  color: #2980b9;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.home-button:hover {
+  background: #2980b9;
+  color: white;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.home-button i {
+  font-size: 16px;
+}
+
+.home-button span {
+  white-space: nowrap;
+}
+
+/* Responsive Home Button */
+@media (max-width: 768px) {
+  .home-button {
+    padding: 10px 14px;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .home-button span {
+    display: none;
+  }
+
+  .home-button i {
+    font-size: 18px;
+  }
+}
+.container {
+  max-width: 900px;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  padding: 32px 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+h1 {
+  margin: 0 0 8px;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1a1a;
+  font-size: 2.2rem;
+  user-select: none;
+}
+/* Sections */
+section {
+  border: 1px solid #d1d9e6;
+  border-radius: 8px;
+  padding: 20px 24px;
+  background: #fafbfc;
+}
+section h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 6px;
+  user-select: none;
+}
+
+/* Field editor */
+#fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.field-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.field-row input[type="text"] {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1.5px solid #bcccdc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+.field-row input[type="text"]:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px #4a90e2aa;
+}
+.field-row select {
+  width: 140px;
+  padding: 7px 12px;
+  border: 1.5px solid #bcccdc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+.field-row select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px #4a90e2aa;
+}
+.field-row input.custom-input {
+  width: 160px;
+}
+.field-row button.remove-btn {
+  background: #e74c3c;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1;
+  user-select: none;
+  transition: background-color 0.3s;
+  flex-shrink: 0;
+}
+.field-row button.remove-btn:hover {
+  background: #c0392b;
+}
+
+/* Add Field Button */
+#addFieldBtn {
+  margin-top: 12px;
+  background: #2980b9;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  user-select: none;
+  width: fit-content;
+}
+#addFieldBtn:hover {
+  background: #217dbb;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+label {
+  font-weight: 600;
+  user-select: none;
+  font-size: 1rem;
+}
+input[type="number"] {
+  width: 80px;
+  padding: 6px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1.5px solid #bcccdc;
+  transition: border-color 0.3s;
+}
+input[type="number"]:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px #4a90e2aa;
+}
+select#templateSelector {
+  padding: 6px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1.5px solid #bcccdc;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  user-select: none;
+  min-width: 140px;
+}
+select#templateSelector:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px #4a90e2aa;
+}
+
+/* Template editor */
+#templateInput {
+  width: 100%;
+  height: 120px;
+  padding: 14px;
+  border: 1.5px solid #bcccdc;
+  border-radius: 8px;
+  font-family: "Consolas", monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+#templateInput:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px #4a90e2aa;
+}
+
+/* Generate Button */
+#generateBtn {
+  background: #27ae60;
+  border: none;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  user-select: none;
+  margin-top: 16px;
+  align-self: flex-start;
+}
+#generateBtn:hover {
+  background: #219955;
+}
+
+/* Output */
+#outputSection {
+  position: relative;
+}
+#output {
+  background: #1e272e;
+  border-radius: 8px;
+  padding: 16px;
+  height: 200px;
+  overflow-y: auto;
+  margin-top: 16px;
+}
+
+#output pre {
+  color: #ecf0f1;
+  font-family: "Consolas", monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Copy output button */
+#copyBtn {
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+#copyBtn:hover {
+  background: #2980b9;
+}
+
+/* Scrollbar styling for fields and output */
+#fields::-webkit-scrollbar,
+#output::-webkit-scrollbar {
+  width: 8px;
+}
+#fields::-webkit-scrollbar-thumb,
+#output::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+#fields::-webkit-scrollbar-track,
+#output::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+/* Responsive */
+@media (max-width: 760px) {
+  .container {
+    padding: 24px 16px;
+  }
+
+  section {
+    padding: 16px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .field-row {
+    flex-wrap: wrap;
+  }
+
+  .field-row select,
+  .field-row input.custom-input {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
