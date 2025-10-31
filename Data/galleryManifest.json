@@ -301,8 +301,8 @@
     },
     {
       "folder": "FavoriteComponents",
-      "name": "Les composants préférés",
-      "description": "Mes composants préférés pour le développement web",
+      "name": "CSS playground",
+      "description": "Showcase of my Handwritten CSS components",
       "icon": "✨",
       "images": [
         {
